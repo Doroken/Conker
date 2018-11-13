@@ -1,5 +1,5 @@
 //literally the same as main.js, just with @Conker as a prefix instead of >
-//not as updated as the main one cause im frickin lazy
+//not as updated as the main one cause im frickin lazy - most people use > instead of @Conker anyway
 
 //is SUPPOSED to keep the bot running by pinging every 5 minutes...wound up using uptime robot anyway so this is basically useless now
 const http = require('http');
