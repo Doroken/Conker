@@ -21,7 +21,8 @@ const Latest = "October 31st, 2018";
 const Month = "October";
 
 //cmds
-const cmdCount = "59";
+const cmdCount = "60";
+const songCount = "3";
 const testCmds = "2";
 const infoCmd = "13";
 const imgCmd = "17";
@@ -31,11 +32,12 @@ const multimedCmd = "6";
 const emojiCmd = "5";
 const actionCmd = "4";
 const etcCmd = "5";
+const MusMonth = "November 2018";
 
 
 const statuses = [
 	{
-		"text": ">help | v1.32",
+		"text": ">help | v1.33",
 		"type": "PLAYING"
 	},
 	{
@@ -47,7 +49,7 @@ const statuses = [
 		"type": "WATCHING"
 	},
   {
-    "text": "with recent updates: some new playing statuses",
+    "text": "with recent updates: music!",
     "type": "PLAYING"
   },
   {
@@ -86,7 +88,7 @@ const statuses = [
 
 //special for idiot nation/triple d nation - automatically gives new member a role
 client.on('guildMemberAdd', (guildMember) => {
-   guildMember.addRole(guildMember.guild.roles.find(role => role.name === "Waddle Dees"));
+   guildMember.addRole(guildMember.guild.roles.find(role => role.name === "(Auto Assigned Role by Conker)"));
 });
 
 client.on("ready", () => {
@@ -106,8 +108,7 @@ client.on("message", (message) => {
     message.channel.send("no.")
     return;
   }
-
-
+  
   //Info
 
   if (command === "ping") {
@@ -147,7 +148,7 @@ client.on("message", (message) => {
        },
        {
          "name": "Commands",
-         "value": stripIndents`There are ${cmdCount} official commands, with ${testCmds} still in testing.`
+         "value": stripIndents`There are ${cmdCount} official commands, with ${testCmds} still in testing. I can currently play ${songCount} songs!`
        },
        {
          "name": "Servers",
@@ -166,7 +167,7 @@ client.on("message", (message) => {
     message.channel.send({
 "embed": {
     "title": "Server List",
-    "description": "`Total Server Count - 5`",
+    "description": "`Total Server Count - 6`",
 	"color": 2254003,
 	   "fields": [
       {
@@ -213,7 +214,7 @@ client.on("message", (message) => {
       },
 	  {
         "name": "New Commands",
-        "value": "`user` - still a WIP, but gives you some basic user info about yourself, such as your ID. The embeds are a random color, which I think is kinda cool."
+        "value": "Music!! Use `music` to see a list of songs (all of which are MIDI files), and `songname` to play it in the voice channel. Use `leave` to make Conker leave the voice channel. Or don't. Whatever. He can just sit in there by himself, uh-huh, sure."
       },
 	  {
         "name": "Bug Fixes",
@@ -225,7 +226,7 @@ client.on("message", (message) => {
      },
     {
         "name": "Upcoming/Developing Features",
-        "value": "how would you guys feel if conker played big time rush albums in the voice channel"
+        "value": "next up is the entire big time rush album"
      }
     ]
   }
@@ -291,7 +292,7 @@ client.on("message", (message) => {
       },
 	  {
         "name": stripIndents`Videos/Music (${multimedCmd})`,
-        "value": "`kirbynightcore` Created by Doroken herself - a great lullaby.\n`oceanman` Take me by the hand, lead me to the land~\n`cottoneyejoe` Night loves this song.\n`edge` Posts Doroken's \"edgy\" playlist from Spotify. Lots of Limp Bizkit and Linkin Park.\n\`song` Gives you a song recommendation from a list over 180! Songs with an asterisk at the end indicate that it may be inappropriate, whether by a couple swear words or questionable content. Songs with a grave at the beginning indicate one I strongly recommend.\n\`album` Gives you an album recommendation. Albums with a grave are ones I strongly recommend."
+        "value": "`music` Gives you a list of songs that the bot can play.\n`kirbynightcore` Created by Doroken herself - a great lullaby.\n`oceanman` Take me by the hand, lead me to the land~\n`cottoneyejoe` Night loves this song.\n`edge` Posts Doroken's \"edgy\" playlist from Spotify. Lots of Limp Bizkit and Linkin Park.\n\`song` Gives you a song recommendation from a list over 180! Songs with an asterisk at the end indicate that it may be inappropriate, whether by a couple swear words or questionable content. Songs with a grave at the beginning indicate one I strongly recommend.\n\`album` Gives you an album recommendation. Albums with a grave are ones I strongly recommend."
       },
       {
         "name": stripIndents`Emoji Response (${emojiCmd})`,
@@ -312,7 +313,7 @@ client.on("message", (message) => {
 });
   }
 
-    if (command === "help") {
+  if (command === "help") {
 	  message.author.send({
 "embed": {
     "title": "Home Server",
@@ -349,7 +350,7 @@ client.on("message", (message) => {
       },
 	  {
         "name": stripIndents`Videos/Music (${multimedCmd})`,
-        "value": "`kirbynightcore` Created by Doroken herself - a great lullaby.\n`oceanman` Take me by the hand, lead me to the land~\n`cottoneyejoe` Night loves this song.\n`edge` Posts Doroken's \"edgy\" playlist from Spotify. Lots of Limp Bizkit and Linkin Park.\n\`song` Gives you a song recommendation from a list over 180! Songs with an asterisk at the end indicate that it may be inappropriate, whether by a couple swear words or questionable content. Songs with a grave at the beginning indicate one I strongly recommend.\n\`album` Gives you an album recommendation. Albums with a grave are ones I strongly recommend."
+        "value": "`music` Gives you a list of songs that the bot can play.\n`kirbynightcore` Created by Doroken herself - a great lullaby.\n`oceanman` Take me by the hand, lead me to the land~\n`cottoneyejoe` Night loves this song.\n`edge` Posts Doroken's \"edgy\" playlist from Spotify. Lots of Limp Bizkit and Linkin Park.\n\`song` Gives you a song recommendation from a list over 180! Songs with an asterisk at the end indicate that it may be inappropriate, whether by a couple swear words or questionable content. Songs with a grave at the beginning indicate one I strongly recommend.\n\`album` Gives you an album recommendation. Albums with a grave are ones I strongly recommend."
       },
       {
         "name": stripIndents`Emoji Response (${emojiCmd})`,
@@ -384,7 +385,7 @@ client.on("message", (message) => {
       if (message.author.id === "332354236253995013") {
         message.reply(stripIndents`No I don't wanna.\n\ \`${Error}\` \n\This means that something went wrong. You should probably tell Doroken.`)
     return;
-    }
+    } else
 	  message.channel.send("https://discord.gg/V4NKMKG\n\Don't worry - we're very friendly, and would love to chat! You can even watch Doroken call me names on a daily basis.");
   }
 
@@ -603,47 +604,75 @@ if (command === "hotdogs") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.leave()
     } else {
-      message.reply("Oh come on, I'm not even in the voice channel!");
+      message.reply("Either you or I are not in the voice channel. You have to still be in the voice channel in order to make me leave for some reason. Doroken's working on it, supposedly.");
     }
 }
   
-  
-  if (command === "music") {
+     if (command === "music") {
     message.channel.send({
       "embed": {
-    "title": "Kingdom Cats Music",
-    "description": "Soundtracks from Petz Catz/Dogz 2 and The DOG Island that have been dramatically edited.\nUse `>music-songname` to play a song.",
+    "description": stripIndents`These are all midi files. They're great. Song request? Slide into Doro's DMs.\nCurrent song count: ${songCount}`,
 	"color": 2254003,
       "thumbnail": {
-      "url": "https://cdn.discordapp.com/attachments/328613437854711808/419295552233275412/avatar.png"
+      "url": "https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2Ficon.png"
       },
     "author": {
-      "name": "Music"
+      "name": "List of Songs"
     },
 	  "footer": {
       "icon_url": stripIndents`${message.author.avatarURL}`,
-      "text": "Doroken#9881 <> © July 2018 <> Music rights belong to Ubisoft and the other parties responsible for the games"
+      "text": stripIndents`© ${MusMonth} <> Music rights belong to their respective artists and copyrights and whatever else the hecc`
     },
 	   "fields": [
        {
            "name": "Song List",
-           "value":"Alley `alley`\nBetween Time `time`\nBubble Kingdom `bubb1`\nBubble Kingdom 2/Secondary Ice Kingdom `bubb2`\nSuspicion `susp`\nDeserted Kingdom `desert`\nDungeon `dungeon`\nForgotten Wastelands `wasteland`\nIce Kingdom `ice`\nLibrary `lib`\nMain Castle Theme `castle1`\nSecondary Castle Theme `castle2`\nShadow Kingdom `shadow`\nShadow Kingdom Alt `shadow2`\nSolitary Fields `fields`\nMain Theme/Title `title`\nVillage Theme `village`"
+           "value":"All Star `allstar`\nViva la Vida `vivavida`\nBoulevard of Broken Dreams `bobd`"
        }
        ]
     }
   });
 }
-
-  if (command === "music-lib") {
-    (connection => {
-           connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FLibrary.mp3')
-      .catch(stripIndents`Sorry, Doro's still working on this music thing. \`${Error}\` happened.`);
-        })
-    }
   
-  if (command === "music-help") {
-    message.reply("https://www.npmjs.com/package/discord-music-bot");
-  }
+  //Songs
+
+  if (command === "allstar") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Playing music...");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FAllStar.mp3');
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+  
+    if (command === "vivavida") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Playing music...");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FVivaLaVida.mp3');
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+  
+    if (command === "bobd") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Playing music...");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FBoulevardofBrokenDreams.mp3');
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
 
 
 
