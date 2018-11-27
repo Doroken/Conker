@@ -1842,10 +1842,10 @@ message.reply(Random);
                return;
           }
             else {
-            message.reply("Changing status...")
       const status = statuses[Math.floor(Math.random() * statuses.length)];
 		client.user.setActivity(status.text, { type: status.type });
           (message => client.destroy())
+          message.reply("Changing status...")
           .then(() => client.login(process.env.SECRET))
           .then(console.log(stripIndents`Status changed by ${message.author.username}`))
           .then(message.reply("Status changed!"));
@@ -2164,9 +2164,9 @@ message.reply(Random);
   if (command === "alt-" + "status") {
       message.reply("`status` has no aliases.");
   }
-	
+  
   if (command === "alt-" + "music") {
-	  message.reply("`music` has no aliases.");
+	    message.reply("`music` has no aliases.");
   }
       });
    client.login(process.env.SECRET);
