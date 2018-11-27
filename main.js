@@ -276,7 +276,7 @@ client.on("message", (message) => {
       },
       {
         "name": stripIndents`Voice (${voiceCmd})`,
-        "value": "`connect` Connects to your voice channel.\n`disconnect` Disconnects from your voice channel."
+        "value": "`connect` Connects to your voice channel.\n`disconnect` Disconnects from your voice channel.\n*Use* `music` *to see a list of songs that can be played.*"
       },
       {
         "name": stripIndents`Copypasta (${copyCmd})`,
@@ -334,7 +334,7 @@ client.on("message", (message) => {
       },
       {
         "name": stripIndents`Voice (${voiceCmd})`,
-        "value": "`connect` Connects to your voice channel.\n`disconnect` Disconnects from your voice channel."
+        "value": "`connect` Connects to your voice channel.\n`disconnect` Disconnects from your voice channel.\n*Use* `music` *to see a list of songs that can be played.*"
       },
       {
         "name": stripIndents`Copypasta (${copyCmd})`,
@@ -1818,34 +1818,39 @@ message.reply(Random);
   }
   
   if (command === "restart" || command === "reset") {
-    if (message.author.id !== "229003197908385794") {
+    if (message.author.id !== "229003197908385794" && message.author.id !== "448543768010948608") {
             message.reply("you do not have permission to do that!")
-              .then(console.log(Date.now() + stripIndents` Attemped restart by ${message.author.username}`))
+              .then(console.log(stripIndents` Attemped restart by ${message.author.username}`))
                return;
           }
-            else
+            else {
+          if (message.member.voiceChannel) {
+          message.member.voiceChannel.leave()
+          }
+          (message => client.destroy())
             message.reply("Restarting...")
-          .then(message => client.destroy())
           .then(() => client.login(process.env.SECRET))
-          .then(console.log(Date.now() + stripIndents`Bot restarted by ${message.author.username}`))
+          .then(console.log(stripIndents`Bot restarted by ${message.author.username}`))
           .then(message.reply("Successfully restarted!"));
-      }
+    }
+ }
   
     if (command === "status") {
-    if (message.author.id !== "229003197908385794") {
+    if (message.author.id !== "229003197908385794" && message.author.id !== "448543768010948608") {
             message.reply("you do not have permission to do that!")
-              .then(console.log(Date.now() + stripIndents` Attemped status change by ${message.author.username}`))
+              .then(console.log(stripIndents`Attemped status change by ${message.author.username}`))
                return;
           }
-            else
+            else {
             message.reply("Changing status...")
       const status = statuses[Math.floor(Math.random() * statuses.length)];
 		client.user.setActivity(status.text, { type: status.type });
           (message => client.destroy())
           .then(() => client.login(process.env.SECRET))
-          .then(console.log(Date.now() + stripIndents`Bot restarted by ${message.author.username}`))
+          .then(console.log(stripIndents`Status changed by ${message.author.username}`))
           .then(message.reply("Status changed!"));
       }
+    }
   
   
 
@@ -2158,6 +2163,10 @@ message.reply(Random);
   
   if (command === "alt-" + "status") {
       message.reply("`status` has no aliases.");
+  }
+	
+  if (command === "alt-" + "music") {
+	  message.reply("`music` has no aliases.");
   }
       });
    client.login(process.env.SECRET);
