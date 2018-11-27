@@ -1,6 +1,3 @@
-//literally the same as main.js, just with @Conker as a prefix instead of >
-//not as updated as the main one cause im frickin lazy - most people use > instead of @Conker anyway
-
 //is SUPPOSED to keep the bot running by pinging every 5 minutes...wound up using uptime robot anyway so this is basically useless now
 const http = require('http');
 const express = require('express');
@@ -26,21 +23,23 @@ const prefix = "<@313365972943896576>";
 const { stripIndents } = require('common-tags');
 
 //update info
-const Version = "1.30";
-const Latest = "October 15th, 2018";
-const Month = "October";
+const Version = "1.33";
+const Latest = "November 26th, 2018";
+const Month = "November";
 
 //cmds
-const cmdCount = "57";
+const cmdCount = "60";
+const songCount = "41";
 const testCmds = "2";
-const infoCmd = "11"
-const imgCmd = "17"
-const voiceCmd = "2"
-const copyCmd = "7"
-const multimedCmd = "6"
-const emojiCmd = "5"
-const actionCmd = "4"
-const etcCmd = "5"
+const infoCmd = "13";
+const imgCmd = "17";
+const voiceCmd = "2";
+const copyCmd = "7";
+const multimedCmd = "6";
+const emojiCmd = "5";
+const actionCmd = "4";
+const etcCmd = "5";
+const MusMonth = "November 2018";
 
 //special for idiot nation/triple d nation - automatically gives new member a role
 client.on('guildMemberAdd', (guildMember) => {
@@ -64,19 +63,18 @@ client.on("message", (message) => {
     message.channel.send("no.")
     return;
   }
-
-
+  
   //Info
 
   if (command === "ping") {
-    message.reply("Pong! I'm up, thanks for checking. (Script 3)");
+    message.reply("Pong! I'm up, thanks for checking. (Script 1)");
   } else
       if (command === "pong") {
-    message.reply("Ping! I'm up, thanks for checking. (Script 3)");
+    message.reply("Ping! I'm up, thanks for checking. (Script 1)");
       }
-        if (message.content.startsWith("ping3")) {
-        message.reply("Pong! Script 3 is up and running.");
-      }
+        if (message.content.startsWith("ping1")) {
+          message.reply("Pong! Script 1 is up and running.");
+        }
 
   if (command === "info") {
     message.channel.send({
@@ -91,8 +89,8 @@ client.on("message", (message) => {
       "name": stripIndents`Conker ${Version}`,
     },
 	  "footer": {
-      "icon_url": "https://cdn.discordapp.com/attachments/328613437854711808/419296051120308234/c5bceb96dd3bc63295340e6aede226e1.jpg",
-      "text": stripIndents`Created, maintained, and owned by Doroken#9881 <> © ${Month}`,
+      "icon_url": stripIndents`${message.author.avatarURL}`,
+      "text": stripIndents`Created, maintained, and owned by Doroken#9881 <> © ${Month} - Requested by ${message.author.username}`,
     },
 	   "fields": [
        {
@@ -105,7 +103,7 @@ client.on("message", (message) => {
        },
        {
          "name": "Commands",
-         "value": stripIndents`There are ${cmdCount} official commands, with ${testCmds} still in testing.`
+         "value": stripIndents`There are ${cmdCount} official commands, with ${testCmds} still in testing. I can currently play ${songCount} songs!`
        },
        {
          "name": "Servers",
@@ -124,7 +122,7 @@ client.on("message", (message) => {
     message.channel.send({
 "embed": {
     "title": "Server List",
-    "description": "`Total Server Count - 5`",
+    "description": "`Total Server Count - 6`",
 	"color": 2254003,
 	   "fields": [
       {
@@ -171,25 +169,46 @@ client.on("message", (message) => {
       },
 	  {
         "name": "New Commands",
-        "value": "Nothing yet. Started working on having the bot play local audio files again though!"
+        "value": "Music!! Use `music` to see a list of songs (all of which are MIDI files), and `songname` to play it in the voice channel. Use `leave`, `stop`, or `disconnect` to make Conker leave the voice channel. Or don't. Whatever. He can just sit in there by himself, uh-huh, sure."
       },
 	  {
         "name": "Bug Fixes",
-        "value": "I redid a lot of the code so updating info is *much* easier now. Rather than having to manually change everything to \"v1.29\", I just set up variables for everything that would need to be updated."
+        "value": "\"\"\"undefined\"\"\""
       },
 	  {
         "name": "Other Notes",
-        "value": "/shrug"
+        "value": "inky dinky doodle doooo"
      },
     {
         "name": "Upcoming/Developing Features",
-        "value": "The music playing thing I mentioned earlier."
+        "value": "next up is the entire big time rush album"
      }
     ]
   }
 });
 
   }
+  
+  if (command === "user") {
+    message.channel.send({
+      "embed": {
+        "title": "User information",
+        "color": Math.floor(Math.random() * 16777214) + 1,
+        "author": {
+          "name": stripIndents`${message.author.username}`
+        },
+        "thumbnail": {
+        "url": stripIndents`${message.author.avatarURL}`
+        },
+  "fields": [
+      {
+        "name": "ID",
+        "value": stripIndents`${message.author.id}`
+      }
+    ]
+   }
+ }
+)};
 
   if (command === "commands") {
 	  message.channel.send({
@@ -206,13 +225,13 @@ client.on("message", (message) => {
       "url": "https://www.wattpad.com/story/82418175-regna-felibus-book-one-astrum"
     },
 	  "footer": {
-      "icon_url": "https://cdn.discordapp.com/attachments/328613437854711808/419296051120308234/c5bceb96dd3bc63295340e6aede226e1.jpg",
-      "text": stripIndents`© Doroken > ${Latest}`
+      "icon_url": stripIndents`${message.author.avatarURL}`,
+      "text": stripIndents`Requested by ${message.author.username} < © Doroken > ${Latest}`
     },
     "fields": [
       {
         "name": stripIndents`Info (${infoCmd})`,
-        "value": "`info` Displays bot information.\n`ping` Checks to see if the bot is running.\n`commands` Provides a list of commands.\n`servers` Gives you a quick, messy list of servers the bot is on.\n`serverlist` Posts a prettier list of servers, but is slower and not as up-to-date as `servers`. However, it includes invite links to the servers.\n`invite` Provides the bot invite link (must be added by Doroken)\n`whoareyou` Why is there a talking orange cat in my server.\n`home` The server where you can find detailed information about updates and features. Also shameless self advertising from Doroken.\n`updates` Returns the most recent update notes.\n`alt-` When followed by a command name, will return a list of aliases for that command. Example: `alt-ping`.\n`restart` Restarts the bot. For use by Doroken only."
+        "value": "`info` Displays bot information.\n`ping` Checks to see if the bot is running.\n`commands` Provides a list of commands.\n`servers` Gives you a quick, messy list of servers the bot is on.\n`serverlist` Posts a prettier list of servers, but is slower and not as up-to-date as `servers`. However, it includes invite links to the servers.\n`invite` Provides the bot invite link (must be added by Doroken)\n`whoareyou` Why is there a talking orange cat in my server.\n`home` The server where you can find detailed information about updates and features. Also shameless self advertising from Doroken.\n`updates` Returns the most recent update notes.\n`alt-` When followed by a command name, will return a list of aliases for that command. Example: `alt-ping`.\n`restart` Restarts the bot. For use by Doroken only.\n`status` Changes the playing status of the bot. Also can only be used by Doroken.\n`user` Gives you your user info."
       },
       {
         "name": stripIndents`Images (${imgCmd})`,
@@ -220,7 +239,7 @@ client.on("message", (message) => {
       },
       {
         "name": stripIndents`Voice (${voiceCmd})`,
-        "value": "`connect` Connects to your voice channel.\n`disconnect` Disconnects from your voice channel."
+        "value": "`connect` Connects to your voice channel.\n`disconnect` Disconnects from your voice channel.\n*Use* `music` *to see a list of songs that can be played.*"
       },
       {
         "name": stripIndents`Copypasta (${copyCmd})`,
@@ -228,7 +247,7 @@ client.on("message", (message) => {
       },
 	  {
         "name": stripIndents`Videos/Music (${multimedCmd})`,
-        "value": "`kirbynightcore` Created by Doroken herself - a great lullaby.\n`oceanman` Take me by the hand, lead me to the land~\n`cottoneyejoe` Night loves this song.\n`edge` Posts Doroken's \"edgy\" playlist from Spotify. Lots of Limp Bizkit and Linkin Park.\n\`song` Gives you a song recommendation from a list over 180! Songs with an asterisk at the end indicate that it may be inappropriate, whether by a couple swear words or questionable content. Songs with a grave ` at the beginning indicate one I strongly recommend.\n\`album` Gives you an album recommendation. Albums with a grave ` are ones I strongly recommend."
+        "value": "`music` Gives you a list of songs that the bot can play.\n`kirbynightcore` Created by Doroken herself - a great lullaby.\n`oceanman` Take me by the hand, lead me to the land~\n`cottoneyejoe` Night loves this song.\n`edge` Posts Doroken's \"edgy\" playlist from Spotify. Lots of Limp Bizkit and Linkin Park.\n\`song` Gives you a song recommendation from a list over 180! Songs with an asterisk at the end indicate that it may be inappropriate, whether by a couple swear words or questionable content. Songs with a grave at the beginning indicate one I strongly recommend.\n\`album` Gives you an album recommendation. Albums with a grave are ones I strongly recommend."
       },
       {
         "name": stripIndents`Emoji Response (${emojiCmd})`,
@@ -249,7 +268,7 @@ client.on("message", (message) => {
 });
   }
 
-    if (command === "help") {
+  if (command === "help") {
 	  message.author.send({
 "embed": {
     "title": "Home Server",
@@ -264,13 +283,13 @@ client.on("message", (message) => {
       "url": "https://www.wattpad.com/story/82418175-regna-felibus-book-one-astrum"
     },
 	  "footer": {
-      "icon_url": "https://cdn.discordapp.com/attachments/328613437854711808/419296051120308234/c5bceb96dd3bc63295340e6aede226e1.jpg",
-      "text": stripIndents`© Doroken > ${Latest}`
+      "icon_url": stripIndents`${message.author.avatarURL}`,
+      "text": stripIndents`Requested by ${message.author.username} < © Doroken > ${Latest}`
     },
     "fields": [
       {
         "name": stripIndents`Info (${infoCmd})`,
-        "value": "`info` Displays bot information.\n`ping` Checks to see if the bot is running.\n`commands` Provides a list of commands.\n`servers` Gives you a quick, messy list of servers the bot is on.\n`serverlist` Posts a prettier list of servers, but is slower and not as up-to-date as `servers`. However, it includes invite links to the servers.\n`invite` Provides the bot invite link (must be added by Doroken)\n`whoareyou` Why is there a talking orange cat in my server.\n`home` The server where you can find detailed information about updates and features. Also shameless self advertising from Doroken.\n`updates` Returns the most recent update notes.\n`alt-` When followed by a command name, will return a list of aliases for that command. Example: `alt-ping`.\n`restart` Restarts the bot. For use by Doroken only."
+        "value": "`info` Displays bot information.\n`ping` Checks to see if the bot is running.\n`commands` Provides a list of commands.\n`servers` Gives you a quick, messy list of servers the bot is on.\n`serverlist` Posts a prettier list of servers, but is slower and not as up-to-date as `servers`. However, it includes invite links to the servers.\n`invite` Provides the bot invite link (must be added by Doroken)\n`whoareyou` Why is there a talking orange cat in my server.\n`home` The server where you can find detailed information about updates and features. Also shameless self advertising from Doroken.\n`updates` Returns the most recent update notes.\n`alt-` When followed by a command name, will return a list of aliases for that command. Example: `alt-ping`.\n`restart` Restarts the bot. For use by Doroken only.\n`status` Changes the playing status of the bot. Also can only be used by Doroken.\n`user` Gives you your user info."
       },
       {
         "name": stripIndents`Images (${imgCmd})`,
@@ -278,7 +297,7 @@ client.on("message", (message) => {
       },
       {
         "name": stripIndents`Voice (${voiceCmd})`,
-        "value": "`connect` Connects to your voice channel.\n`disconnect` Disconnects from your voice channel."
+        "value": "`connect` Connects to your voice channel.\n`disconnect` Disconnects from your voice channel.\n*Use* `music` *to see a list of songs that can be played.*"
       },
       {
         "name": stripIndents`Copypasta (${copyCmd})`,
@@ -286,7 +305,7 @@ client.on("message", (message) => {
       },
 	  {
         "name": stripIndents`Videos/Music (${multimedCmd})`,
-        "value": "`kirbynightcore` Created by Doroken herself - a great lullaby.\n`oceanman` Take me by the hand, lead me to the land~\n`cottoneyejoe` Night loves this song.\n`edge` Posts Doroken's \"edgy\" playlist from Spotify. Lots of Limp Bizkit and Linkin Park.\n\`song` Gives you a song recommendation from a list over 180! Songs with an asterisk at the end indicate that it may be inappropriate, whether by a couple swear words or questionable content. Songs with a grave ` at the beginning indicate one I strongly recommend.\n\`album` Gives you an album recommendation. Albums with a grave ` are ones I strongly recommend."
+        "value": "`music` Gives you a list of songs that the bot can play.\n`kirbynightcore` Created by Doroken herself - a great lullaby.\n`oceanman` Take me by the hand, lead me to the land~\n`cottoneyejoe` Night loves this song.\n`edge` Posts Doroken's \"edgy\" playlist from Spotify. Lots of Limp Bizkit and Linkin Park.\n\`song` Gives you a song recommendation from a list over 180! Songs with an asterisk at the end indicate that it may be inappropriate, whether by a couple swear words or questionable content. Songs with a grave at the beginning indicate one I strongly recommend.\n\`album` Gives you an album recommendation. Albums with a grave are ones I strongly recommend."
       },
       {
         "name": stripIndents`Emoji Response (${emojiCmd})`,
@@ -321,7 +340,7 @@ client.on("message", (message) => {
       if (message.author.id === "332354236253995013") {
         message.reply(stripIndents`No I don't wanna.\n\ \`${Error}\` \n\This means that something went wrong. You should probably tell Doroken.`)
     return;
-    }
+    } else
 	  message.channel.send("https://discord.gg/V4NKMKG\n\Don't worry - we're very friendly, and would love to chat! You can even watch Doroken call me names on a daily basis.");
   }
 
@@ -527,7 +546,7 @@ if (command === "hotdogs") {
     if (command === "connect" || command === "join") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
-        .then(connection => { // Connection is an instance of VoiceConnection
+        .then(connection => {
           message.reply("Connected! I'm surprised Doroken managed to do somethin' right.")
           connection.playArbitraryInput("https://www.youtube.com/watch?v=oO9nc-u0q14");
         })
@@ -536,53 +555,669 @@ if (command === "hotdogs") {
     }
   }
 
-      if (command === "disconnect" || command === "leave") {
+      if (command === "disconnect" || command === "leave" || command === "stop") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.leave()
     } else {
-      message.reply("Oh come on, I'm not even in the voice channel!");
+      message.reply("Either you or I are not in the voice channel. You have to still be in the voice channel in order to make me leave for some reason. Doroken's working on it, supposedly.");
     }
 }
   
-  
-  if (command === "music") {
+     if (command === "music") {
     message.channel.send({
       "embed": {
-    "title": "Kingdom Cats Music",
-    "description": "Soundtracks from Petz Catz/Dogz 2 and The DOG Island that have been dramatically edited.\nUse `>music-songname` to play a song.",
+    "description": stripIndents`These are all midi files. They're great. Song request? Slide into Doro's DMs.\nCurrent song count: ${songCount}`,
 	"color": 2254003,
       "thumbnail": {
-      "url": "https://cdn.discordapp.com/attachments/328613437854711808/419295552233275412/avatar.png"
+      "url": "https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2Ficon.png"
       },
     "author": {
-      "name": "Music"
+      "name": "List of Songs"
     },
 	  "footer": {
-      "icon_url": "https://cdn.discordapp.com/attachments/328613437854711808/419296051120308234/c5bceb96dd3bc63295340e6aede226e1.jpg",
-      "text": "Doroken#9881 <> © July 2018 <> Music rights belong to Ubisoft and the other parties responsible for the games"
+      "icon_url": stripIndents`${message.author.avatarURL}`,
+      "text": stripIndents`© ${MusMonth} <> Music rights belong to their respective artists and copyrights and whatever else the hecc`
     },
 	   "fields": [
        {
            "name": "Song List",
-           "value":"Alley `alley`\nBetween Time `time`\nBubble Kingdom `bubb1`\nBubble Kingdom 2/Secondary Ice Kingdom `bubb2`\nSuspicion `susp`\nDeserted Kingdom `desert`\nDungeon `dungeon`\nForgotten Wastelands `wasteland`\nIce Kingdom `ice`\nLibrary `lib`\nMain Castle Theme `castle1`\nSecondary Castle Theme `castle2`\nShadow Kingdom `shadow`\nShadow Kingdom Alt `shadow2`\nSolitary Fields `fields`\nMain Theme/Title `title`\nVillage Theme `village`"
+           "value":"All Star `allstar`\nNever Gonna Give You Up `rickroll`\nBoulevard of Broken Dreams `bobd`\nBasket Case `basket`\n21 Guns `21guns`\nJesus of Suburbia `suburbia`\nNice Guys Finish Last `niceguys`\nWaiting `waiting`\nViva la Vida `vivavida`\nClocks `clocks`\nParadise `paradise`\nStrawberry Swing `strawberry`\nCharlie Brown `cbrown`\nViolet Hill `violethill`\nThe Scientist `scientist`\nYellow `yellow`\nHave You Ever `haveyouever`\nKick Him When He's Down `kickdown`\nAmazed `amazed`\nThe Noose `noose`\n(Can't Get My) Head Around You `headaround`\nAmericana `americana`\nCome Out And Play `comeplay`\nChange the World `changeworld`\nGone Away `goneaway`\nI Choose `choose`\nMota `mota`\nThe Meaning of Life `meaninglife`\nSelf Esteem `selfesteem`\nThe Kids Aren't Alright `kidsalright`\nM+M's `mms`\nStockholm Syndrome `stockholm`\nThe Rock Show `rockshow`\nI Won't Be Home For Christmas `christmas`\nWhat's My Age Again `age`\nWasting Time `wastingtime`\nAliens Exist `aliens`\nDon't Leave Me `leaveme`\nAll The Small Things `smallthings`\nMH 4.18.2011 `mh418`"
        }
        ]
     }
   });
 }
-
-  if (command === "music-lib") {
-    (connection => {
-           connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FLibrary.mp3')
-      .catch(stripIndents`Sorry, Doro's still working on this music thing. \`${Error}\` happened.`);
-        })
-    }
   
-  if (command === "music-help") {
-    message.reply("https://www.npmjs.com/package/discord-music-bot");
-  }
+  
+  //Songs
 
+  if (command === "allstar") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `All Star - Smash Mouth`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FAllStar.mp3');
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+  
+    if (command === "vivavida") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `Viva la Vida - Coldplay`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FVivaLaVida.mp3');
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+  
+    if (command === "bobd") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `Boulevard of Broken Dreams - Green Day`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FBoulevardofBrokenDreams.mp3');
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+  
+if (command === "rickroll") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `Never Gonna Give You Up - Rick Astley`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FNeverGonnaGiveYouUp.mp3');
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
 
+if (command === "basket") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `Basket Case - Green Day`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FBasketCase.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+
+if (command === "21guns") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `21 Guns - Green Day`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2F21Guns.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+
+if (command === "suburbia") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `Jesus of Suburbia - Green Day`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FJesusOfSuburbia.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+
+if (command === "niceguys") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `Nice Guys Finish Last - Green Day`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FNiceGuysFinishLast.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+
+if (command === "waiting") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `Waiting - Green Dayy`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FWaiting.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+
+if (command === "clocks") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `Clocks - Coldplay`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FClocks.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+
+if (command === "paradise") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `Paradise - Coldplay`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FParadise.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+
+if (command === "strawberry") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `Strawberry Swing - Coldplay`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FStrawberrySwing.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+
+if (command === "cbrown") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `Charlie Brown - Coldplay`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FCharlieBrown.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+
+if (command === "violethill") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `Violet Hill - Coldplay`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FVioletHill.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+
+if (command === "scientist") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `The Scientist - Coldplay`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FTheScientist.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+
+if (command === "yellow") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `Yellow - Coldplay`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FYellow.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+
+if (command === "haveyouever") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `Have You Ever - The Offspring`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FHaveYouEver.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+
+if (command === "kickdown") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `Kick Him When He's Down - The Offspring`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FKickHimWhenHesDown.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+
+if (command === "amazed") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `Amazed - The Offspring`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FAmazed.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+  
+  if (command === "noose") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `The Noose - The Offspring`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FTheNoose.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+
+if (command === "headaround") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `(Can't Get My) Head Around You - The Offspring`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FCantGetMyHeadAroundYou.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+
+if (command === "americana") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `Americana - The Offspring`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FAmericana.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+
+if (command === "comeplay") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `Come Out and Play - The Offspring`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FComeOutAndPlay.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+
+if (command === "changeworld") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `Change the World - The Offspring`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FChangeTheWorld.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+
+if (command === "goneaway") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `Gone Away - The Offspring`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FGoneAway.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+
+if (command === "choose") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `I Choose - The Offspring`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FIChoose.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+
+if (command === "mota") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `Mota - The Offspring`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FMota.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+
+if (command === "meaninglife") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `The Meaning of Life - The Offspring`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FTheMeaningOfLife.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+
+if (command === "selfesteem") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `Self Esteem - The Offspring`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FSelfEsteem.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+
+if (command === "kidsalright") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `The Kids Aren't Alright - The Offspring`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FTheKidsArentAlright.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+
+if (command === "mms") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `M+M's - blink-182`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FMMs.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+
+if (command === "stockholm") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `Stockholm Syndrome - blink-182`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FStockholmSyndrome.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+
+if (command === "rockshow") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `The Rock Show - blink-182`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FTheRockShow.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+
+if (command === "christmas") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `I Won't Be Home For Christmas - blink-182`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FIWontBeHomeForChristmas.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+
+if (command === "age") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `What's My Age Again - blink-182`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FWhatsMyAgeAgain.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+
+if (command === "wastingtime") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `Wasting Time - blink-182`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FWastingTime.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+
+if (command === "aliens") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `Aliens Exist - blink-182`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FAliensExist.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+
+if (command === "leaveme") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `Don't Leave Me - blink-182`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FDontLeaveMe.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+
+if (command === "smallthings") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `All The Small Things - blink-182`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FAllTheSmallThings.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+
+  if (command === "mh418") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `MH 4.18.2011 - blink-182`");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FMH4.18.2011.mp3');
+        dispatcher.on('end', () => {
+          message.member.voiceChannel.leave()
+          });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
 
   //etc.
 
@@ -1146,18 +1781,39 @@ message.reply(Random);
   }
   
   if (command === "restart" || command === "reset") {
-    if (message.author.id !== "229003197908385794") {
+    if (message.author.id !== "229003197908385794" && message.author.id !== "448543768010948608") {
             message.reply("you do not have permission to do that!")
-              .then(console.log(Date.now() + stripIndents` Attemped restart by ${message.author.username}`))
+              .then(console.log(stripIndents` Attemped restart by ${message.author.username}`))
                return;
           }
-            else
+            else {
+          if (message.member.voiceChannel) {
+          message.member.voiceChannel.leave()
+          }
+          (message => client.destroy())
             message.reply("Restarting...")
-          .then(message => client.destroy())
           .then(() => client.login(process.env.SECRET))
-          .then(console.log(Date.now() + stripIndents`Bot restarted by ${message.author.username}`))
+          .then(console.log(stripIndents`Bot restarted by ${message.author.username}`))
           .then(message.reply("Successfully restarted!"));
+    }
+ }
+  
+    if (command === "status") {
+    if (message.author.id !== "229003197908385794" && message.author.id !== "448543768010948608") {
+            message.reply("you do not have permission to do that!")
+              .then(console.log(stripIndents`Attemped status change by ${message.author.username}`))
+               return;
+          }
+            else {
+      const status = statuses[Math.floor(Math.random() * statuses.length)];
+		client.user.setActivity(status.text, { type: status.type });
+          (message => client.destroy())
+          message.reply("Changing status...")
+          .then(() => client.login(process.env.SECRET))
+          .then(console.log(stripIndents`Status changed by ${message.author.username}`))
+          .then(message.reply("Status changed!"));
       }
+    }
   
   
 
@@ -1308,11 +1964,14 @@ message.reply(Random);
           }
 
   if (command === "alt-" + "disconnect") {
-    message.reply("`disconnect`, `leave`")
+    message.reply("`disconnect`, `leave`, `stop`")
   }
         if (command === "alt-" + "leave") {
-          message.reply("`disconnect`, `leave`")
+          message.reply("`disconnect`, `leave`, `stop`")
           }
+                    if (command === "alt-" + "stop") {
+                        message.reply("`disconnect`, `leave`, `stop`")
+                        }
 
   if (command === "alt-" + "memestealing") {
     message.reply("`memestealing has no aliases.`")
@@ -1463,6 +2122,14 @@ message.reply(Random);
   
   if (command === "alt-" + "badmeme") {
       message.reply("`badmeme` has no aliases.");
+  }
+  
+  if (command === "alt-" + "status") {
+      message.reply("`status` has no aliases.");
+  }
+  
+  if (command === "alt-" + "music") {
+	    message.reply("`music` has no aliases.");
   }
       });
    client.login(process.env.SECRET);
