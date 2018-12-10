@@ -14,18 +14,13 @@ setInterval(() => {
 //declaring discord stuff
 const Discord = require('discord.js');
 const client = new Discord.Client();
-client.on("ready", () => {
-//setGame deprecating soon, use setActivity
-  console.log("Logged in as Conker (Mention).");
-});
-//cmd prefix + ${ } tags
-const prefix = "<@313365972943896576>";
+const prefix = ">";
 const { stripIndents } = require('common-tags');
 
 //update info
-const Version = "1.33";
-const Latest = "November 26th, 2018";
-const Month = "November";
+const Version = "1.34";
+const Latest = "December 10th, 2018";
+const Month = "December";
 
 //cmds
 const cmdCount = "60";
@@ -36,22 +31,66 @@ const imgCmd = "17";
 const voiceCmd = "2";
 const copyCmd = "7";
 const multimedCmd = "6";
-const emojiCmd = "5";
+const emojiCmd = "6";
 const actionCmd = "4";
 const etcCmd = "5";
 const MusMonth = "November 2018";
 
+
+const statuses = [
+	{
+		"text": ">help | v1.34",
+		"type": "PLAYING"
+	},
+  {
+		"text": ">help | v1.34",
+		"type": "PLAYING"
+	},
+	{
+		"text": "Doroken (supposedly)",
+		"type": "LISTENING"
+	},
+	{
+		"text": "over your dumb Kingdom",
+		"type": "WATCHING"
+	},
+  {
+    "text": "with recent updates: EPIC FORTNITE DANCE",
+    "type": "PLAYING"
+  },
+  {
+    "text": "with recent updates: music!",
+    "type": "PLAYING"
+  },
+  {
+    "text": "with ur mom",
+		"type": "PLAYING"
+  },
+  {
+    "text": "with a flaming death sword",
+		"type": "PLAYING"
+  },
+  {
+		"text": ", waiting, commiserating",
+		"type": "WATCHING"
+	},
+  {
+		"text": "the tube but nothing's on",
+		"type": "WATCHING"
+	}
+]
+
 //special for idiot nation/triple d nation - automatically gives new member a role
 client.on('guildMemberAdd', (guildMember) => {
-   guildMember.addRole(guildMember.guild.roles.find(role => role.name === "Waddle Dees"));
+   guildMember.addRole(guildMember.guild.roles.find(role => role.name === "(Auto Assigned Role by Conker)"));
 });
 
 client.on("ready", () => {
   console.log("Logged in as Conker.");
   client.setInterval(() => {
-		const status = "Main script is down - please use @Conker as a prefix until further notice."
+		const status = statuses[Math.floor(Math.random() * statuses.length)];
 		client.user.setActivity(status.text, { type: status.type });
-	}, 20000);
+	}, 22000);
 });
 
 client.on("message", (message) => {
@@ -169,19 +208,19 @@ client.on("message", (message) => {
       },
 	  {
         "name": "New Commands",
-        "value": "Music!! Use `music` to see a list of songs (all of which are MIDI files), and `songname` to play it in the voice channel. Use `leave`, `stop`, or `disconnect` to make Conker leave the voice channel. Or don't. Whatever. He can just sit in there by himself, uh-huh, sure."
+        "value": "`fortnite` - a fun animated emote of Kirby"
       },
 	  {
         "name": "Bug Fixes",
-        "value": "\"\"\"undefined\"\"\""
+        "value": "no"
       },
 	  {
         "name": "Other Notes",
-        "value": "inky dinky doodle doooo"
+        "value": "aaaaaaaaa"
      },
     {
         "name": "Upcoming/Developing Features",
-        "value": "next up is the entire big time rush album"
+        "value": "does anyone want me to add more songs cause i will"
      }
     ]
   }
@@ -251,7 +290,7 @@ client.on("message", (message) => {
       },
       {
         "name": stripIndents`Emoji Response (${emojiCmd})`,
-        "value": "`wut` wut.\n`thisisfine` That's okay, things are going to be okay.\n`pog` Watch out for Dr. Panda.\n`youtried` There was an attempt. \n`creepysmiley` Revived from the glory days of Chatango."
+        "value": "`wut` wut.\n`thisisfine` That's okay, things are going to be okay.\n`pog` Watch out for Dr. Panda.\n`youtried` There was an attempt. \n`creepysmiley` Revived from the glory days of Chatango.\n`fortnite` The pinnacle of comedy"
       },
       {
         "name": stripIndents`Actions (${actionCmd})`,
@@ -309,7 +348,7 @@ client.on("message", (message) => {
       },
       {
         "name": stripIndents`Emoji Response (${emojiCmd})`,
-        "value": "`wut` wut.\n`thisisfine` That's okay, things are going to be okay.\n`pog` Watch out for Dr. Panda.\n`youtried` There was an attempt. \n`creepysmiley` Revived from the glory days of Chatango."
+        "value": "`wut` wut.\n`thisisfine` That's okay, things are going to be okay.\n`pog` Watch out for Dr. Panda.\n`youtried` There was an attempt. \n`creepysmiley` Revived from the glory days of Chatango.\n`fortnite` The pinnacle of comedy"
       },
       {
         "name": stripIndents`Actions (${actionCmd})`,
@@ -366,6 +405,9 @@ client.on("message", (message) => {
 
   if (command === "pog") {
     message.channel.send("<:Pog:380471700090781697>");
+  }
+  if (command === "fortnite") {
+    message.channel.send("<a:KirbyFortnite:516599623264108553>");
   }
 
 
@@ -1344,23 +1386,27 @@ message.reply(Random)
 	  "`Guilty All The Same - Linkin Park (Alt./punk rock?)",
 	  "Keys to the Kingdom - Linkin Park (Punk/hard rock..?)*",
 	  "Rebellion - Linkin Park (Alt. rock?)",
-	  "What I've Done - Linkin Park (Alt./modern rock?)",
+	  "`What I've Done - Linkin Park (Alt./modern rock?)",
 	  "One More Light - Linkin Park (Soft..?)",
 	  "New Divide - Linkin Park (Modern rock?)",
 	  "Somewhere I Belong - Linkin Park (Grunge rock, is that a thing?)",
 	  "Castle of Glass - Linkin Park (Soft/a little electronic?)",
 	  "The Catalyst - Linkin Park (Electronic/Grunge/Rock? Really have no idea with this one)",
 	  "Faint - Linkin Park (Punk/Grunge rock?)",
-	  "Papercut - Linkin Park (Edgy rock)",
-	  "A Place For My Head - Linkin Park (Edgy rock)",
+	  "` My<Dsmbr - Linkin Park (Soft electronic grunge?)",
+	  "Wth>You - Linkin Park (Nu metal/electronic grunge?)",
+    "` By_Myslf - Linkin Park (Nu metal/electronic grunge?)",
 	  "In The End - Linkin Park (Edgy rock)",
 	  "Crawling - Linkin Park (CRAAAAWWWWWLING INNNN MY SKIN)",
 	  "In Pieces - Linkin Park (not really sure what genre)",
-	  "Lying From You - Linkin Park (Grunge(?) rock with some nice screaming)",
+    "My December - Linkin Park (Soft...uhh...electronic rock thing)",
+    "`Stick 'N Move - Xero/Early Linkin Park (Grunge rap-rock?)",
+    "`Ground Xero - Xero/Early Linkin Park (Soft grunge/rock?)",
+    "Reading My Eyes - Xero/Early Linkin Park (Grunge rap-rock?)*",
   
       
 	  //offspring
-	  "`Coming for You - The Offspring (Punk rock?)*",
+	  "Coming for You - The Offspring (Punk rock?)*",
 	  "Secrets From the Underground - The Offspring (Modern rock?)",
 	  "`The Kids Aren't Alright - The Offspring (Rock?)",
 	  "Americana - The Offspring (Rock?)*",
@@ -1372,7 +1418,7 @@ message.reply(Random)
 	  "You're Gonna Go Far, Kid - The Offspring (Modern/alt. rock?)*",
 	  "Not the One - The Offspring (Punk rock?)",
 	  "`Self Esteem - The Offspring (Rock?)",
-	  "Half-Truism - The Offspring (Modern rock?)",
+	  "`Half-Truism - The Offspring (Modern rock?)",
 	  "Forever and a Day - The Offspring (Punk rock?)",
 	  "Kick Him When He's Down - The Offspring (Rock?)",
 	  "Million Miles Away - The Offspring (Rock, I guess?)",
@@ -1383,6 +1429,9 @@ message.reply(Random)
 	  "The Noose - The Offspring (Modern-ish rock? Sweet guitar tune though)",
 	  "I Choose - The Offspring (Rock?)*",
 	  "Come Out Swinging - The Offspring (Punk rock-ish?)",
+    "`I'll Be Waiting - The Offspring (Punk rock)",
+    "`Crossroads - The Offspring (Punk rock)",
+    "A Thousand Days - The Offspring (Punk rock)",
 
 	  
       //pumpkins
@@ -1430,6 +1479,7 @@ message.reply(Random)
 	  "Famous Last Words - My Chemical Romance (Modern rock?)",
 	  "`House of Wolves - My Chemical Romance (Alt./modern rock?)*",
 	  "Mama - My Chemical Romance (emo rock? Look, I don't know, alright?)",
+    "The Sharpest Lives - My Chemical Romance (MCR is kinda just their own genre aren't they)",
   
   
 	  //owl
@@ -1459,14 +1509,14 @@ message.reply(Random)
 	  "Rollin' - Limp Bizkit (i'm kidding please don't)*",
 	  "Re-Arranged - Limp Bizkit (even though i'm always making fun of limp bizkit, this song isn't that bad)*",
 	  "Killer - The Ready Set (Alternative/modern rock?)",
-	  "`I Hate Everything About You - Three Days Grace (Rock?)",
+	  "I Hate Everything About You - Three Days Grace (Rock?)",
 	  "Remember the Name - Fort Minor (Rap/kinda rock?)*",
 	  "`The Donkey Kong Rap - Donkey Kong 64 (Rap)",
 	  "`We Are Number One - Robbie Rotten (too good for a genre)",
 	  "Youth Of The Nation - P.O.D. (Rap/Rock?)",
 	  "Dirty Little Secret - The All-American Rejects (Pop rock?)",
 	  "Californication - Red Hot Chili Peppers (Mellow/classic rock?)",
-	  "Twisted Transistor - Korn (Alternative? Light metal or something?)",
+	  "Turn So Cold - Drowning Pool (Rock?)",
 	  "Meme Machine - Pink Guy (Electronic?)*",
 	  "`Take it Easy - The Eagles (Classic rock?)",
 	  "The Boys of Summer - The Ataris (Rock?)",
@@ -1478,7 +1528,13 @@ message.reply(Random)
 	  "Bodies - Drowning Pool (Let the bodies hit the FLOOOOOOORRRR!)",
 	  "L.A. Baby (Where Dreams Are Made Of) - Jonas Brothers (I liked them a lot when I was like 10 :( )",
 	  "`Drive My Car - Elmo (Beep beep-m beep beep yeah!)",
-    "`Your Tears Don't Fall (They Crash Around Me) - Bullet For My Valentine (Hard rock?)*"
+    "Tears Don't Fall (They Crash Around Me) - Bullet For My Valentine (Hard rock?)*",
+    "`Shine - Collective Soul (Classic rock?)",
+    "`Right Here - Staind (Classic rock?)",
+    "When I'm Gone - 3 Doors Down (Classic/alt. rock?)",
+    "Thnks Fr Th Mmrs - Fall Out Boy (That modern emo-rock tumblr people like idk)",
+    "Megalovania - Sans Undertale (do do do do do do dodo)",
+    "Trippin' On A Hole in a Paper Heart - Stone Temple Pilots (Soft rock?)"
 ]
 
 const Random = answers[Math.floor(Math.random() * answers.length)];
@@ -1514,7 +1570,8 @@ message.reply(Random);
 	"LOL <(^^;)> by Basshunter (2006)",
   "Bass Generation by Basshunter (2009)",
 	
-	"Meteora by Linkin Park (2003)",
+	"`Xero by Linkin Park (1997)",
+  "`Reanimation by Linkin Park (2002)",
 	"Minutes to Midnight by Linkin Park (2007)",
 	"`The Hunting Party by Linkin Park (2014)",	
 
