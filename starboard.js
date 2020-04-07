@@ -1,3 +1,4 @@
+//starboard test
 client.on('messageReactionAdd', reaction => {
   const message = reaction.message
   if (reaction.emoji.name !== '⭐') return;
