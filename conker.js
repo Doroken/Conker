@@ -1,3 +1,5 @@
+//express stuff to keep it running for more than 5 minutes
+//apps running for more than 12 hours are forcibly stopped. still haven't tested it without this code.
 const http = require('http');
 const express = require('express');
 const app = express();
@@ -15,33 +17,45 @@ const client = new Discord.Client();
 const prefix = ">";
 const { stripIndents } = require('common-tags');
 
+//eval stuff
+const clean = text => {
+  if (typeof(text) === "string")
+    return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
+  else
+      return text;
+}
+
 //update info
-const Version = "1.34";
-const Latest = "December 10th, 2018";
-const Month = "December";
+const Version = "1.40";
+const Latest = "April 3rd, 2020";
+const Month = "April";
 
 //cmds
-const cmdCount = "60";
-const songCount = "41";
+const cmdCount = "63";
+const songCount = "42";
 const testCmds = "2";
 const infoCmd = "13";
 const imgCmd = "17";
 const voiceCmd = "2";
 const copyCmd = "7";
-const multimedCmd = "6";
+const multimedCmd = "9";
 const emojiCmd = "6";
 const actionCmd = "4";
 const etcCmd = "5";
-const MusMonth = "November 2018";
+const MusMonth = "April 2020";
 
 
 const statuses = [
 	{
-		"text": ">help | v1.34",
+		"text": ">help | v1.4",
 		"type": "PLAYING"
 	},
   {
-		"text": ">help | v1.34",
+		"text": ">help | v1.4",
+		"type": "PLAYING"
+	},
+  	{
+		"text": "LAST UPDATE: 4.3.2020",
 		"type": "PLAYING"
 	},
 	{
@@ -53,11 +67,7 @@ const statuses = [
 		"type": "WATCHING"
 	},
   {
-    "text": "with recent updates: EPIC FORTNITE DANCE",
-    "type": "PLAYING"
-  },
-  {
-    "text": "with recent updates: music!",
+    "text": "with recent updates: more annoying responses to interrupt your conversations",
     "type": "PLAYING"
   },
   {
@@ -80,7 +90,7 @@ const statuses = [
 
 //special for idiot nation/triple d nation - automatically gives new member a role
 client.on('guildMemberAdd', (guildMember) => {
-   guildMember.addRole(guildMember.guild.roles.find(role => role.name === "(Auto Assigned Role by Conker)"));
+   guildMember.addRole(guildMember.guild.roles.find(role => role.name === "get conked (auto assigned role by Conker)"));
 });
 
 client.on("ready", () => {
@@ -91,26 +101,69 @@ client.on("ready", () => {
 	}, 22000);
 });
 
+
 client.on("message", (message) => {
+  
+  
+  if (message.author.id === "235148962103951360") {
+if (message.content.startsWith("Finally,")) {
+  const Replies = [
+    "I'm gonna beat you up Carl",
+"Shut up Carl",
+"Nobody cares Carl",
+"I will slam you through a car windshield Carl",
+"I will bodyslam you onto concrete and break your stupid turtle shell Carl",
+"Shut up Carl your opinion doesn't matter"
+  ]
+  const Reply = Replies[Math.floor(Math.random() * Replies.length)];
+  message.channel.send(Reply);
+  }
+}
+  
+   if (message.author.id === "468480694059008000") {
+if (message.content.startsWith("Conker! Go to your room!")) {
+   message.channel.send("You're not my real dad!");
+  }
+}
+  
+  
   if (!message.content.startsWith(prefix) || message.author.bot) return;
   const args = message.content.slice(prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
 
+  
   if (message.author.id === "victim_id") {
     message.channel.send("no.")
     return;
   }
+if (message.author.id === "332354236253995013") {
+        message.reply(stripIndents`No I don't wanna.\n\ \`${Error}\` \n\This means that something went wrong. Maybe it'll be fixed, maybe it won't.`)
+    return;
+    }
+  
+  
+  
+  //debug + testing
+  if (command === "rtest") {
+        message.reply(stripIndents`No I don't wanna.\n\ \`${Error}\` \n\This means that something went wrong. Maybe it'll be fixed, maybe it won't.`)
+    return;
+    }
+  
   
   //Info
 
   if (command === "ping") {
-    message.reply("Pong! I'm up, thanks for checking. (Script 1)");
+    if (message.content.startsWith(">ping1") || message.content.startsWith(">ping2") || message.content.startsWith(">ping3") || message.content.startsWith(">ping4")) return;
+    message.reply("Pong! I'm up, thanks for checking. (Script 1 - main)");
+    message.react("✔");
   } else
       if (command === "pong") {
     message.reply("Ping! I'm up, thanks for checking. (Script 1)");
+        message.react("✔");
       }
-        if (message.content.startsWith("ping1")) {
-          message.reply("Pong! Script 1 is up and running.");
+        if (message.content.startsWith(">ping1")) {
+          message.reply("Pong! Script 1 (main) is up and running.");
+          message.react("✔");
         }
 
   if (command === "info") {
@@ -152,14 +205,14 @@ client.on("message", (message) => {
 }
 
   if (command === "servers") {
-    message.reply(stripIndents`${client.guilds.array().sort()}`);
+    message.reply(stripIndents`${client.guilds.map(g=>g.name).join('\n')}`);
   }
 
       if (command === "serverlist") {
     message.channel.send({
 "embed": {
     "title": "Server List",
-    "description": "`Total Server Count - 6`",
+    "description": "`Total Server Count - 8`",
 	"color": 2254003,
 	   "fields": [
       {
@@ -167,8 +220,8 @@ client.on("message", (message) => {
         "value": "**Private Server**\nOwner: Doroken#9881\nMembers: ~10\n "
       },
 	  {
-        "name": "Triple D Nation",
-        "value": "[Invite](https://discord.gg/V4NKMKG)\nOwner: Doroken#9881\nMembers: ~35\n "
+        "name": "King Dedede's Idiot Nation™",
+        "value": "[Invite](https://discord.gg/V4NKMKG)\nOwner: Doroken#9881\nMembers: ~65\n "
       },
 	  {
         "name": "The Kirby Fan Chat",
@@ -180,12 +233,21 @@ client.on("message", (message) => {
       },
 	  {
         "name": "Soul's Lab",
-        "value": "[Invite](https://discord.gg/Q2yfTQZ)\nOwner: 4SoulSDealer#0067\nMembers: ~10"
+        "value": "[Invite](https://discord.gg/Q2yfTQZ)\nOwner: 4SoulSDealer#0067\nMembers: ~20"
       },
-       
     {
         "name": "communist server where everyone gets free admin. don't even bother trying to keep track of the server name",
-        "value": "[Invite](https://discord.gg/5ZJRUkR)\nOwner: Doroken#9881\nMembers: > 10"
+        "value": "[Invite](https://discord.gg/5ZJRUkR)\nOwner: Doroken#9881\nMembers: ~20"
+      },
+
+   {
+        "name": "91 Times Rock - The Lonely Road",
+        "value": "**Request Access**\nOwner: Night#8000\nMembers: ~5"
+      },
+       
+      {
+        "name": "Dungeons and Dragons Club",
+        "value": "[Invite](https://discord.gg/5cAZdXW)\nOwner: 4SoulSDealer#0067\nMembers: ~20"
       }
 
     ]
@@ -196,7 +258,7 @@ client.on("message", (message) => {
     if (command === "updates") {
     message.channel.send({
 "embed": {
-    "title": "Recent Update Notes",
+    "title": "Recent Updates",
     "description": "`For more update notes, please visit the #bot-updates channel on the home server.`",
 	"color": 4863714,
 	   "fields": [
@@ -206,19 +268,19 @@ client.on("message", (message) => {
       },
 	  {
         "name": "New Commands",
-        "value": "`fortnite` - a fun animated emote of Kirby"
+        "value": "Nope."
       },
 	  {
         "name": "Bug Fixes",
-        "value": "no"
+        "value": "I saw a tiny one on my windowsill the other day. I picked it up with a piece of paper and put it outside. May not have survived."
       },
 	  {
         "name": "Other Notes",
-        "value": "aaaaaaaaa"
+        "value": "Music list is organized by artists now. Also added a single song. Yes. New profile picture as well."
      },
     {
         "name": "Upcoming/Developing Features",
-        "value": "does anyone want me to add more songs cause i will"
+        "value": "I was thinking of throwing in common english words and making a command that has Conker randomly pick a bunch of words. It'll probably be nonsense most of the time but maybe there will be a funny some time."
      }
     ]
   }
@@ -284,7 +346,7 @@ client.on("message", (message) => {
       },
 	  {
         "name": stripIndents`Videos/Music (${multimedCmd})`,
-        "value": "`music` Gives you a list of songs that the bot can play.\n`kirbynightcore` Created by Doroken herself - a great lullaby.\n`oceanman` Take me by the hand, lead me to the land~\n`cottoneyejoe` Night loves this song.\n`edge` Posts Doroken's \"edgy\" playlist from Spotify. Lots of Limp Bizkit and Linkin Park.\n\`song` Gives you a song recommendation from a list over 180! Songs with an asterisk at the end indicate that it may be inappropriate, whether by a couple swear words or questionable content. Songs with a grave at the beginning indicate one I strongly recommend.\n\`album` Gives you an album recommendation. Albums with a grave are ones I strongly recommend."
+        "value": "`music` Gives you a list of songs that the bot can play.\n`kirbynightcore` Created by Doroken himself - a great lullaby.\n`oceanman` Take me by the hand, lead me to the land~\n`cottoneyejoe` Night loves this song.\n`edge` Posts Doroken's \"edgy\" playlist from Spotify. Lots of Limp Bizkit and Linkin Park.\n\`song` Gives you a song recommendation from a list over 180! Songs with an asterisk at the end indicate that it may be inappropriate, whether by a couple swear words or questionable content. Songs with a grave at the beginning indicate one I strongly recommend.\n\`album` Gives you an album recommendation. Albums with a grave are ones I strongly recommend.\n`music-yt` Gives you a song from YouTube.\n`music-spot` Gives you a song from Spotify. This has a lot more songs included than YouTube.\n`playlist` Gives you one of my Spotify Playlists."
       },
       {
         "name": stripIndents`Emoji Response (${emojiCmd})`,
@@ -342,7 +404,7 @@ client.on("message", (message) => {
       },
 	  {
         "name": stripIndents`Videos/Music (${multimedCmd})`,
-        "value": "`music` Gives you a list of songs that the bot can play.\n`kirbynightcore` Created by Doroken herself - a great lullaby.\n`oceanman` Take me by the hand, lead me to the land~\n`cottoneyejoe` Night loves this song.\n`edge` Posts Doroken's \"edgy\" playlist from Spotify. Lots of Limp Bizkit and Linkin Park.\n\`song` Gives you a song recommendation from a list over 180! Songs with an asterisk at the end indicate that it may be inappropriate, whether by a couple swear words or questionable content. Songs with a grave at the beginning indicate one I strongly recommend.\n\`album` Gives you an album recommendation. Albums with a grave are ones I strongly recommend."
+        "value": "`music` Gives you a list of songs that the bot can play.\n`kirbynightcore` Created by Doroken himself - a great lullaby.\n`oceanman` Take me by the hand, lead me to the land~\n`cottoneyejoe` Night loves this song.\n`edge` Posts Doroken's \"edgy\" playlist from Spotify. Lots of Limp Bizkit and Linkin Park.\n\`song` Gives you a song recommendation from a list over 180! Songs with an asterisk at the end indicate that it may be inappropriate, whether by a couple swear words or questionable content. Songs with a grave at the beginning indicate one I strongly recommend.\n\`album` Gives you an album recommendation. Albums with a grave are ones I strongly recommend.\n`music-yt` Gives you a song from YouTube.\n`music-spot` Gives you a song from Spotify. This has a lot more songs included than YouTube.\n`playlist` Gives you one of my Spotify Playlists."
       },
       {
         "name": stripIndents`Emoji Response (${emojiCmd})`,
@@ -362,6 +424,7 @@ client.on("message", (message) => {
   }
 })
       message.reply("Sent you a list of commands! :paw_prints:");
+    message.react("✔");
   }
 
   if (command === "invite") {
@@ -369,7 +432,7 @@ client.on("message", (message) => {
   }
 
   if (command === "whoareyou") {
-	message.reply("hey hey hey hello hello hello! My creator, Doroken, is writing an original series called Regna Felibus (more commonly known as Kingdom Cats) on Wattpad, and I am one of three main characters. My full name is apparently Conker Ni'hilsha Himmel, but that's a mouthful, so you can just call me Conker. I'm the second prince of the Sky Kingdom, which is corrupt from years of royal tyranny and it just sucks in general. Everything sucks. Except me. I'm awesome. Except when I accidentally inhale canned depression. Then I'm just sad.\n\:(");
+	message.reply("hey hey hey hello hello hello! My creator, Doroken, is writing an original series called Regna Felibus (more commonly known as Kingdom Cats) on Wattpad, and I am one of three main characters. My full name is apparently Conker Ni'hilsha Himmel, but that's a mouthful, so you can just call me Conker. I'm totally not just a cat version of Conker the Squirrel from that N64 game. I'm the second prince of the Sky Kingdom, which is corrupt from years of royal tyranny and it just sucks in general. Everything sucks. Except me. I'm awesome. Except when I accidentally inhale canned depression. Then I'm just sad.\n\:(");
   }
 
   if (command === "home") {
@@ -409,6 +472,24 @@ client.on("message", (message) => {
   }
 
 
+   if (command === "eval") {
+    if(message.author.id !== "229003197908385794") {
+            message.reply("yeah no.")
+              .then(console.log(Date.now() + stripIndents`Attemped eval by ${message.author.username}`))
+               return;
+          }
+    try {
+      const code = args.join(" ");
+      let evaled = eval(code);
+ 
+      if (typeof evaled !== "string")
+        evaled = require("util").inspect(evaled);
+ 
+      message.channel.send(clean(evaled), {code:"xl"});
+    } catch (err) {
+      message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
+    }
+  }
 
   //Images
 
@@ -572,7 +653,7 @@ if (command === "hotdogs") {
       },
       {
        "name": ".",
-        "value": "5, 4, 3, boost, 2, turn, 1, hotdog get.\n\ \n\My check list is complete. Heck you Sakurai. I did it."
+        "value": "5, 4, 3, boost, 2, turn, 1, hotdog get.\n\ \n\My check list is complete. Frick you Sakurai. I did it."
       },
 
     ]
@@ -595,7 +676,7 @@ if (command === "hotdogs") {
     }
   }
 
-      if (command === "disconnect" || command === "leave" || command === "stop") {
+      if (command === "disconnect" || command === "leave" || command === "stop" || command === "shutupjesusicantstanditevenironically") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.leave()
     } else {
@@ -603,10 +684,242 @@ if (command === "hotdogs") {
     }
 }
   
-     if (command === "music") {
+    if (command === "playlist") {
+     const suggestion = [
+       "Dank Dreams And Broken Memes (Dank Memes and Broken Dreams - my main library, I guess)\n\https://open.spotify.com/playlist/4491S6XagREZmpoqntT5ZL",
+       "Linking Park (Linkin Park Collection)\n\https://open.spotify.com/playlist/1tt0ua3DGOrxhqyHwDAhZT",
+       "Lincoln Park Live (Linkin Park Live Performances)\n\https://open.spotify.com/playlist/2nvReOR1aK2FGdUhWWFf5A",
+       "The Children (The Offspring Collection)\n\https://open.spotify.com/playlist/055S5eXsYdoCt9Fkb95Yhw",
+       "Red Night (Green Day Collection)\n\https://open.spotify.com/playlist/5U14bUIkIAJgJpVnHbe7Em",
+       "wink-91 (blink-182 Collection)\n\https://open.spotify.com/playlist/2ABhF9W0JueCq1jYou2wpM",
+       "Warmwork (Coldplay Collection)\n\https://open.spotify.com/playlist/1jDKLmysm3OrTYtTmo7lXl",
+       "Crawling in My Wake Me Up Last Resort...electric boogaloo- (Edgy Collection)\n\https://open.spotify.com/playlist/0zdPKVDMjdVaL4FAmTdDL8"
+     ]
+     const Reply = suggestion[Math.floor(Math.random() * suggestion.length)];
+     message.reply(Reply)
+         return;
+}
+  
+  if (command === "music-yt") {
+     const suggestion = [
+       "https://www.youtube.com/watch?v=9eibL0oZNh4", //pretty birdy
+       "https://www.youtube.com/watch?v=XbdqHgaZFSo", //a line in the sand inst
+       "https://www.youtube.com/watch?v=zLgP15W37j4", //everlong
+       "https://www.youtube.com/watch?v=4bzPA8kIAc4", //tears don't fall inst
+       "https://www.youtube.com/watch?v=eO3iN7rNczc", //already gone
+       "https://www.youtube.com/watch?v=YHjdTZ-myCU", //mad world
+       "https://www.youtube.com/watch?v=tnLQnX7BPeU", //field of hopes and dreams
+       "https://www.youtube.com/watch?v=StlIYF_h4ho", //bang three w/ vocals
+       "https://www.youtube.com/watch?v=FqM0NeQI-P4", //rhinestone
+       "https://www.youtube.com/watch?v=ne10vI-_XUU", //crossroads
+       "https://www.youtube.com/watch?v=qOaJnUouiec", //stick n move
+       "https://www.youtube.com/watch?v=JNZZNyCLj5A (Explicit)", //tears don't fall
+       "https://www.youtube.com/watch?v=KIW_Ca8OWTo", //radioactive
+       "https://www.youtube.com/watch?v=HMtxl9x-QcI (May be blocked cause of copyright shizzizle)", //basshunter 2 hours
+       "https://www.youtube.com/watch?v=iDONKzBLnHg", //bang bang
+       "https://www.youtube.com/watch?v=VgorjCQ6zS4", //what's my age again
+       "https://www.youtube.com/watch?v=5pzQmMyq7mU", //ear exploder
+       "https://www.youtube.com/watch?v=2v0Vjn6ucaw", //the warpzone
+       "https://www.youtube.com/watch?v=su6cfsd-H5I", //mad world + all star
+       "https://www.youtube.com/watch?v=B-He6EzP5zY", //castle of glass
+       "https://www.youtube.com/watch?v=r5EXKDlf44M (there's like one swear)", //boulevard of broken dreams
+       "https://www.youtube.com/watch?v=rhafeVC9uq0", //i'd rather drown
+       "https://www.youtube.com/watch?v=QnS09oQNexA", //new divide
+       "https://www.youtube.com/watch?v=bVkWXqQgxHA", //drive my car
+       "https://www.youtube.com/watch?v=F0Xwt461QyE (Explicit?)", //faded glory
+       "https://www.youtube.com/watch?v=sSIIuqNqJOE (Explicit)", //jesus of suburbia
+       "https://www.youtube.com/watch?v=lTTMPWZ7Hmk", //long lost feeling
+       "https://www.youtube.com/watch?v=ISey8CPOo3Q (Explicit-ish? Swearing's in the background so idk)", //6/8
+       "https://www.youtube.com/watch?v=B3egnoj9nMU", //ground xero
+       "https://www.youtube.com/watch?v=VdlQIn3e2Qg (Explicit)" //natives
+       
+       
+     ]
+     const Reply = suggestion[Math.floor(Math.random() * suggestion.length)];
+     message.reply(Reply)
+         return;
+}
+  
+    if (command === "music-spot") {
+     const suggestion = [
+       "https://open.spotify.com/track/3cfOd4CMv2snFaKAnMdnvK", //all star
+       "https://open.spotify.com/track/6nTiIhLmQ3FWhvrGafw2zj (Explicit)", //american idiot
+       "https://open.spotify.com/track/59sqMNnhzYLyijAFRv7gEw", //armatage shanks
+       "https://open.spotify.com/track/6L89mwZXSOwYl76YXfX13s", //basket case
+       "https://open.spotify.com/track/278Ao6KQDxWGGszv24uvhI", //bang bang
+       "https://open.spotify.com/track/409hGnupGUeqjzpv4Ycs3g (Explicit)", //fod
+       "https://open.spotify.com/track/3aYBjxTMvrEOP0A0UXg9ER", //final masquerade
+       "https://open.spotify.com/track/3DamFFqW32WihKkTVlwTYQ", //fireflies
+       "https://open.spotify.com/track/6wsfrOQOJK9CSwCsyMt1NJ", //forever now
+       "https://open.spotify.com/track/6L5QMBrydoaapTDMQ0Anui", //guilty all the same
+       "https://open.spotify.com/track/28qHtpV7dkgqUDCd1tYJ9t", //freak show
+       "https://open.spotify.com/track/0eUJzAGs9OKSOmLVpsng7e (Explicit)", //having a blast
+       "https://open.spotify.com/track/0MsrWnxQZxPAcov7c74sSo (Explicit)", //holiday + bobd
+       "https://open.spotify.com/track/47VtNNvQhHvy8HWBIXL8Xy (Explicit)", //i'd rather drown
+       "https://open.spotify.com/track/7jeI6EdY0elPSNz80mAKS8", //in pieces
+       "https://open.spotify.com/track/2cZXlLwkRmDww37tbEygXl (Explicit)", //keys to the kingdom
+       "https://open.spotify.com/track/4EchqUKQ3qAQuRNKmeIpnf", //the kids aren't alright
+       "https://open.spotify.com/track/58KPPL1AdLHMvR2O2PZejr (Explicit)", //jesus of suburbia
+       "https://open.spotify.com/track/4BRvD5QdauTo8EuUvYchu3", //line in the sand
+       "https://open.spotify.com/track/3LRJbFT9rKoKv4aW7PuBJC (Explicit)", //longview
+       "https://open.spotify.com/track/6nek1Nin9q48AVZcWs9e9D", //paradise
+       "https://open.spotify.com/track/0PAlrNkCRRHv7hShF5s7Rr", //outlaws
+       "https://open.spotify.com/track/3oqYMRKQcwyNmFn1VD2ukD", //revolution radio
+       "https://open.spotify.com/track/4JJ5zGKnb1IpERyBrfmb1y", //rush of blood to the head
+       "https://open.spotify.com/track/2OV1oB6LQWNw7kTOHU7Bua", //say goodbye
+       "https://open.spotify.com/track/75JFxkI2RXiU7L9VXzMkle", //the scientist
+       "https://open.spotify.com/track/6EsBn1Md8C5YdbCzvwvZq8", //self esteem
+       "https://open.spotify.com/track/19YmvsVCetCBeVj6O2mljR", //still breathing
+       "https://open.spotify.com/track/4DLHhwZCJptTUCQPk6IAq8", //strawberry swing
+       "https://open.spotify.com/track/1ZqHjApl3pfzwjweTfMi0g", //violet hill
+       "https://open.spotify.com/track/1mea3bSkSGXuIRvnydlB5b", //viva la vida
+       "https://open.spotify.com/track/390SemxFYgPZ3FfGVqiIqt", //waiting
+       "https://open.spotify.com/track/1lgN0A2Vki2FTON5PYq42m", //warriors
+       "https://open.spotify.com/track/3S8MFB68isPbRVgaU0MaIW", //wastelands
+       "https://open.spotify.com/track/18lR4BzEs7e3qzc0KVkTpU", //what i've done
+       "https://open.spotify.com/track/5JZcX7TTLx4l0xFIXJ3DBt", //what's my age again
+       "https://open.spotify.com/track/3AJwUDP919kvQ9QcozQPxg", //yellow
+       "https://open.spotify.com/track/44LVgFZvUcBYo98vy71tvd", //gravity
+       "https://open.spotify.com/track/2NXLCUySCK9odGGCGIzbOA", //the catalyst
+       "https://open.spotify.com/track/6TfBA04WJ3X1d1wXhaCFVT (Explicit)", //gonna go far kid
+       "https://open.spotify.com/track/6pM25DLzJb5oWj74d3ElXI", //2000 light years away
+       "https://open.spotify.com/track/7fSFdF4ymvjiOIr1EzB2pu", //1.36
+       "https://open.spotify.com/track/5BmagRD7Thki6O1zZwbxBy", //boys of summer
+       "https://open.spotify.com/track/42d6bxB7OQ6f8ct2ihYNBw (Explicit)", //are we the waiting + st jimmy
+       "https://open.spotify.com/track/48UPSzbZjgc449aqz8bxox", //californication
+       "https://open.spotify.com/track/1kVWn6BRzI9CwGz2vwmXlH", //los angeles
+       "https://open.spotify.com/track/68jM3HGqCToav6bsNY2slc", //san diego
+       "https://open.spotify.com/track/7dVDWf0wud70V4PgYfKnaG (Explicit)", //burnout
+       "https://open.spotify.com/track/2LYAG9jlH9rul11nalRxR0", //killer
+       "https://open.spotify.com/track/0KTja597ZMQUsQuUljoCX4 (Explicit)", //meme machine
+       "https://open.spotify.com/track/1kdiiFGX1Htx0aVZYaDwEJ (Explicit)", //tears don't fall
+       "https://open.spotify.com/track/26AYR77170U49cMcXB7aRV (Explicit)", //feeling this
+       "https://open.spotify.com/track/1oTo3ijRbaDAtrjJrGAPSw", //miss you
+       "https://open.spotify.com/track/6scwY7NWNSUbD7tLSbn7Ba", //in bloom
+       "https://open.spotify.com/track/2ydUT1pFhuLDnouelIv4WH (Explicit)", //rock show
+       "https://open.spotify.com/track/6ndmKwWqMozN2tcZqzCX4K (Explicit)", //remember the name
+       "https://open.spotify.com/track/3RBXNeUbe3X7ZBch00D2St (Explicit)", //extraordinary girl + letterbomb
+       "https://open.spotify.com/track/1O1Dzi3VvUfs0GAbcjqxJC", //christie road
+       "https://open.spotify.com/track/0EonrvTzzNScmk7QT4L3dw (Explicit)", //nice guys finish last
+       "https://open.spotify.com/track/1D23LHWrtlQL9QwxDaUjXZ (Explicit)", //dumpweed
+       "https://open.spotify.com/track/60a0Rd6pjrkxjPbaKzXjfq", //in the end
+       "https://open.spotify.com/track/5ZMqdwtZvvNrpUUTijZem6", //crests of waves
+       "https://open.spotify.com/track/1nLnpLXvl68RZCSjfkyiaa (Explicit)", //brain stew
+       "https://open.spotify.com/track/3BmjRmFTESgWZLPSVGp8aG", //lying from you
+       "https://open.spotify.com/track/0M955bMOoilikPXwKLYpoi", //hate everything about you
+       "https://open.spotify.com/track/4yugZvBYaoREkJKtbG08Qr", //take it easy
+       "https://open.spotify.com/track/4XizBlyqR7ZGVTX0Fyonm2", //today
+       "https://open.spotify.com/track/4NZn1vRGq9s83B7JWsoQgn", //gotta get away
+       "https://open.spotify.com/track/5BnFZLH99sYav2cxJFGO2n", //gone away
+       "https://open.spotify.com/track/6c9UjtsLpfK5hTwTrdRDbR (Explicit)", //lonely guy
+       "https://open.spotify.com/track/4qMzPtAZe0C9KWpWIzvZAP", //bullet butterfly wings
+       "https://open.spotify.com/track/0snQkGI5qnAmohLE7jTsTn", //toxicity
+       "https://open.spotify.com/track/2DlHlPMa4M17kufBvI2lEN", //chop suey
+       "https://open.spotify.com/track/2SpGXD7EbexndFmmThrnsy", //deer dance
+       "https://open.spotify.com/track/4e9eGQYsOiBcftrWXwsVco", //aerials
+       "https://open.spotify.com/track/1QqbWDwIXwbvXnkBu2bbjo", //walk on water
+       "https://open.spotify.com/track/2zQIITgo6sc5ppOfPcH205", //square one
+       "https://open.spotify.com/track/0WWz2AaqxLoO0fa9ou6Fqc", //white shadows
+       "https://open.spotify.com/track/2junx9LRubsMY2OHaSc5DE", //mayonaise
+       "https://open.spotify.com/track/0GlTcDHNVSbx1Oy8kQqRMB", //amazed
+       "https://open.spotify.com/track/1Vdz3WUy9baNOs4YU4LlKJ", //lithium
+       "https://open.spotify.com/track/1JcpLlrnB9dZPWxyvLiatP", //half-truism
+       "https://open.spotify.com/track/0rUNZQuYQvOz6A6zwyT6tM", //how i disappear
+       "https://open.spotify.com/track/7j2Bmzpnf6RwEWEQ2sv8Ho", //house of wolves
+       "https://open.spotify.com/track/2d6m2F4I7wCuAKtSsdhh83", //famous last words
+       "https://open.spotify.com/track/5wVkrSq1U9mkmtDWYKGaSd", //wasting time
+       "https://open.spotify.com/track/2NlRF63jgKhHY1RNhoXQRX", //genocide
+       "https://open.spotify.com/track/2wMqxbWlfIIaVzpYtFG4HY", //stockholm syndrome
+       "https://open.spotify.com/track/747T9seMKmzrFQq879ICjU (Explicit)", //depends
+       "https://open.spotify.com/track/29GehsoqfNexyR5PzgLn59", //denial revisited
+       "https://open.spotify.com/track/1qYcHo4wiesUC2VIRch45G", //head around you
+       "https://open.spotify.com/track/7uGFU4aQolKIem4DFB7BME", //walkin on the sun
+       "https://open.spotify.com/track/5SvJWjPUiJcXqtXm8BmM5z (Explicit)", //mota
+       "https://open.spotify.com/track/5DzeyaeuMS80NIKa43lng0", //change the world
+       "https://open.spotify.com/track/1KblaMkte0ZEyk9k6kLW92", //secrets from underground
+       "https://open.spotify.com/track/0CUYFHDVPANZRwa2SQsoWs (Explicit)", //americana
+       "https://open.spotify.com/track/6gScUFLkoyvwyDP5tOwn0a (Explicit)", //one good reason
+       "https://open.spotify.com/track/3McsQb9vsF9snVh2ku101H", //6/8
+       "https://open.spotify.com/track/2hQRxgtDliE6eD7NmEfpuD", //bored to death acoustic
+       "https://open.spotify.com/track/2c7JbRW7Dl2e9TyNTGth0j", //mh 4.18.2011
+       "https://open.spotify.com/track/3rAbnS20ngiWcL6hbn6yby", //after midnight
+       "https://open.spotify.com/track/0bziU9XgFkAcPrMhVYBM7n (Explicit)", //lobotomy
+       "https://open.spotify.com/track/0CHmnY1V3tmxrIZAkpyxNh", //restless heart syndrome
+       "https://open.spotify.com/track/0c0ptxjRaqaxMM8gvSWCG0 (Explicit)", //static age
+       "https://open.spotify.com/track/2B17416FS7vL5qljgqfm7L", //future is now
+       "https://open.spotify.com/track/5GFixlRubbXY7ixdQSrv0t", //long lost feeling
+       "https://open.spotify.com/track/1feH81BVs89SplmcJzuh1F (Explicit)", //slim pickens
+       "https://open.spotify.com/track/5ceGigL7CZQ3Ih6W8SIbv8", //blurry
+       "https://open.spotify.com/track/6aUZTbyshptdpu7H6Mirjw", //trust in you
+       "https://open.spotify.com/track/3BQmmSfxwwGH8VCvja9uWV (Explicit)", //stuff is messed up
+       "https://open.spotify.com/track/6tNeHmedp9qo3BsBp5zOPe", //million miles away
+       "https://open.spotify.com/track/3T8Ht5f3xUejqEctN3RGb6", //come out swinging
+       "https://open.spotify.com/track/2n1jBz26dVBtSbMvJNjGsu", //until it's gone
+       "https://open.spotify.com/track/0IsjJJXTH3DzoQ13M3kK2A", //takes me nowhere
+       "https://open.spotify.com/track/4Yf5bqU3NK4kNOypcrLYwU", //faint
+       "https://open.spotify.com/track/5UWwZ5lm5PKu6eKsHAGxOk", //everlong
+       "https://open.spotify.com/track/2LuK1b4aoLoBiZrL0jnfYv", //the last stand
+       "https://open.spotify.com/track/1elFRO4jo68oQcKwuto6Va", //you really got me
+       "https://open.spotify.com/track/5EHHMikaYxhe7N6h0gBvkn (Explicit)", //welcome
+       "https://open.spotify.com/track/5IpIcYj3omb4iOP76bAoRP", //top of the world
+       "https://open.spotify.com/track/0Xmbtw7NhNiDnL4BWy5wDh", //innervision
+       "https://open.spotify.com/track/5kBkdxl6uRdwtsGTONJa0z", //forgotten
+       "https://open.spotify.com/track/1gAaRSN57UYVRI4eWRyAvP", //pushing me away
+       "https://open.spotify.com/track/5Z6g6zZwPX6sLw9wU3nJaM", //robot boy
+       "https://open.spotify.com/track/5Mhe8G8RHdQWR30lStPvO5 (Explicit)", //contradiction
+       "https://open.spotify.com/track/2vfshZvISOKy2Je7wQBWOV", //valentine's day
+       "https://open.spotify.com/track/2WpstnkNuH6dUnm3fVLCpU", //sans undertale
+       "https://open.spotify.com/track/0fxGA5lxrdYNYoE7yJxTNZ", //my december
+       "https://open.spotify.com/track/6kRTzAgZYWItrLrB4B9MJR", //turn so cold
+       "https://open.spotify.com/track/1cCYNgQILq8D3uX2sy50Mv", //tears don't fall 2 electric booga - ok im sorry i need to stop making that joke
+       "https://open.spotify.com/track/2TAQ9YGehOKWDqDak5DuXc", //plush
+       "https://open.spotify.com/track/1HZ3cUZUw5htSFmah1V8Ko", //shine
+       "https://open.spotify.com/track/23oxJmDc1V9uLUSmN2LIvx", //ocean avenue
+       "https://open.spotify.com/track/27LoqTcfCOKb642w08iKYK", //i'll be waiting
+       "https://open.spotify.com/track/2kMjk14RmYyYhhSbipoa9U", //the sharpest lives
+       "https://open.spotify.com/track/4CWhc9FaMMfBTt4ANjfbOf", //no more sorrow
+       "https://open.spotify.com/track/16AFbRYIdpesOleGTKClHs", //graves
+       "https://open.spotify.com/track/5Rcs3fREgibWujLUlUb8KA (Explicit)", //all for nothing
+       "https://open.spotify.com/track/1r1fPuhj9H4VdXr7OK6FL5", //castle of glass
+       "https://open.spotify.com/track/6PPu2SJkd5XmHU7q4QifbQ", //new divide
+       "https://open.spotify.com/track/1d5UuboIPRMD4HaU3yycKC", //somewhere i belong
+       "https://open.spotify.com/track/0KlQ2jonltyF4D66hcKJvc", //get it right
+       "https://open.spotify.com/track/3Zwu2K0Qa5sT6teCCHPShP", //thanks for the memories
+       "https://open.spotify.com/track/2fIpea5Sh5celp8JRI7Z4U", //have you ever
+       "https://open.spotify.com/track/02OSSgtcwgI0Ldj4SKR3E5", //thousand days
+       "https://open.spotify.com/track/4CJMOCcjt8YFvuh1biw5qZ", //crossroads
+       "https://open.spotify.com/track/1fLlRApgzxWweF1JTf8yM5 (Explicit)", //given up
+       "https://open.spotify.com/track/11LmqTE2naFULdEP94AUBa", //heart-shaped box
+       "https://open.spotify.com/track/0Z9fK9V7Woc9Pb8C2X6iLr", //no hero
+       "https://open.spotify.com/track/4K20nocu6gubbWYiuCR23K", //can't repeat
+       "https://open.spotify.com/track/5VBVIcMh6CWy8szP3U0Ttp", //defy you
+       "https://open.spotify.com/track/2opJO1DL7Hb6TXdHYiyhIi", //drive my car
+       "https://open.spotify.com/track/2EoOZnxNgtmZaD8uUmz2nD", //black hole sun
+       "https://open.spotify.com/track/5y27WSfGeg1N8HNfXGpZ4U", //premature enlistment
+       "https://open.spotify.com/track/5r5pPZLoablansl2iYPohk", //kick when down
+       "https://open.spotify.com/track/2uSn3d8BvDNjgVnv7zh0le", //forever and a day
+       "https://open.spotify.com/track/19cjuo0y4w2my2GcybUunG (Explicit)", //i choose
+       "https://open.spotify.com/track/3gCu2Q54qU6AppsTeVtYhc", //turning into you
+       "https://open.spotify.com/track/2wInvm8hrvonqyArYUIpvi", //dammit i changed again
+       "https://open.spotify.com/track/6kJiR8bUk9jEzfDU7f8s6v (Explicit)", //no brakes
+       "https://open.spotify.com/track/0JNrW4YNq1F7yyMq9y0C7z", //kaleidoscope
+       "https://open.spotify.com/track/4MlG1rqWrwTf0pcprevozG (Explicit)", //degenerate
+       "https://open.spotify.com/track/2uQ4px5SPONsgcUpulywIQ", //amsterdam
+       "https://open.spotify.com/track/59tjfzA98dum1TXhJ4XWoe", //animals
+       "https://open.spotify.com/track/6WkSUgo1VdpzgtiXKlFPcY (Explicit)", //dammit
+       "https://open.spotify.com/track/3LlAyCYU26dvFZBDUIMb7a", //demons
+       "https://open.spotify.com/track/5qtwzv99vOr5UTwnTixn7j", //know your enemy
+       "https://open.spotify.com/track/3zZ009FB8sc8JghwVrbLFq", //rebellion
+     ]
+     const Reply = suggestion[Math.floor(Math.random() * suggestion.length)];
+     message.reply(Reply)
+         return;
+}
+  
+     if (command === "-music") {
     message.channel.send({
       "embed": {
-    "description": stripIndents`These are all midi files. They're great. Song request? Slide into Doro's DMs.\nCurrent song count: ${songCount}`,
+    "description": stripIndents`These are all midi files. They're great. Song request? Slide into Doro's DMs.\nCurrent song count: ${songCount}\nOptionally, put a - before the song name to play it from the main script, rather than the one dedicated to it, ex. \`>-allstar\`. Be warned that it is very very laggy, since it's the main script and thus running more than just music! I don't know why you'd want this.`,
 	"color": 2254003,
       "thumbnail": {
       "url": "https://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2Ficon.png"
@@ -620,8 +933,31 @@ if (command === "hotdogs") {
     },
 	   "fields": [
        {
-           "name": "Song List",
-           "value":"All Star `allstar`\nNever Gonna Give You Up `rickroll`\nBoulevard of Broken Dreams `bobd`\nBasket Case `basket`\n21 Guns `21guns`\nJesus of Suburbia `suburbia`\nNice Guys Finish Last `niceguys`\nWaiting `waiting`\nViva la Vida `vivavida`\nClocks `clocks`\nParadise `paradise`\nStrawberry Swing `strawberry`\nCharlie Brown `cbrown`\nViolet Hill `violethill`\nThe Scientist `scientist`\nYellow `yellow`\nHave You Ever `haveyouever`\nKick Him When He's Down `kickdown`\nAmazed `amazed`\nThe Noose `noose`\n(Can't Get My) Head Around You `headaround`\nAmericana `americana`\nCome Out And Play `comeplay`\nChange the World `changeworld`\nGone Away `goneaway`\nI Choose `choose`\nMota `mota`\nThe Meaning of Life `meaninglife`\nSelf Esteem `selfesteem`\nThe Kids Aren't Alright `kidsalright`\nM+M's `mms`\nStockholm Syndrome `stockholm`\nThe Rock Show `rockshow`\nI Won't Be Home For Christmas `christmas`\nWhat's My Age Again `age`\nWasting Time `wastingtime`\nAliens Exist `aliens`\nDon't Leave Me `leaveme`\nAll The Small Things `smallthings`\nMH 4.18.2011 `mh418`"
+           "name": "blink-182",
+           "value":"M+M's `mms`\nStockholm Syndrome `stockholm`\nThe Rock Show `rockshow`\nI Won't Be Home For Christmas `christmas`\nWhat's My Age Again `age`\nWasting Time `wastingtime`\nAliens Exist `aliens`\nDon't Leave Me `leaveme`\nAll The Small Things `smallthings`\nMH 4.18.2011 `mh418`"
+         },
+       {
+
+"name": "Coldplay",
+           "value": "Viva la Vida `vivavida`\nClocks `clocks`\nParadise `paradise`\nStrawberry Swing `strawberry`\nCharlie Brown `cbrown`\nViolet Hill `violethill`\nThe Scientist `scientist`\nYellow `yellow`"
+         },
+{
+"name": "Green Day",
+           "value": "Boulevard of Broken Dreams `bobd`\nBasket Case `basket`\n21 Guns `21guns`\nJesus of Suburbia `suburbia`\nNice Guys Finish Last `niceguys`\nWaiting `waiting`"
+       },
+
+{
+"name": "The Offspring",
+           "value": "Have You Ever `haveyouever`\nKick Him When He's Down `kickdown`\nAmazed `amazed`\nThe Noose `noose`\n(Can't Get My) Head Around You `headaround`\nAmericana `americana`\nCome Out And Play `comeplay`\nChange the World `changeworld`\nGone Away `goneaway`\nI Choose `choose`\nMota `mota`\nThe Meaning of Life `meaninglife`\nSelf Esteem `selfesteem`\nThe Kids Aren't Alright `kidsalright`"
+      },
+{
+"name": "Other",
+           "value": "Smash Mouth - All Star `allstar`\nRick Astley -Never Gonna Give You Up `rickroll`\nNirvana - Heart Shaped Box `heartbox`"
+         
+       },
+{
+         "name": "Beta! 1hr+ Nightcore Mixes (no audio skipping/rewinding; song lists are included)",
+         "value": "Linkin Park (1hr 32m) `lp`\nThe Offspring (1hr 5m) `offspring`\nHard/Punk Rock Mix (50:50) `rockmix`"
        }
        ]
     }
@@ -630,8 +966,47 @@ if (command === "hotdogs") {
   
   
   //Songs
+  
+    if (command === "-lp") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `Linkin Park Nightcore Mix (1hr 32m)`\nSong list: https://pastebin.com/2fkZPd2s");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/94890286-4be0-46c4-af6d-0eb8d60e191d%2FLPnightcore.mp3');
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+  
+      if (command === "-rockmix") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `Hard/Punk Rock Nightcore Mix (50:50)`\nSong list: https://pastebin.com/JXZYnAhg");
+const dispatcher = connection.playArbitraryInput('  https://cdn.glitch.com/94890286-4be0-46c4-af6d-0eb8d60e191d%2Fhard-punk%20rock%20nightcore%20mix.mp3');
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+  
+  if (command === "-offspring") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `The Offspring Nightcore Mix (1hr 5m)`\nSorry, no song list yet!");
+const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/94890286-4be0-46c4-af6d-0eb8d60e191d%2FOffspring%20Mix%20(2019_04_13%2018_38_07%20UTC).mp3');
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
 
-  if (command === "allstar") {
+  if (command === "-allstar") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -644,7 +1019,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
   
-    if (command === "vivavida") {
+    if (command === "-vivavida") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -657,7 +1032,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
   
-    if (command === "bobd") {
+    if (command === "-bobd") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -670,7 +1045,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
   
-if (command === "rickroll") {
+if (command === "-rickroll") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -683,7 +1058,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-if (command === "basket") {
+if (command === "-basket") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -699,7 +1074,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-if (command === "21guns") {
+if (command === "-21guns") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -715,7 +1090,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-if (command === "suburbia") {
+if (command === "-suburbia") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -731,7 +1106,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-if (command === "niceguys") {
+if (command === "-niceguys") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -747,7 +1122,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-if (command === "waiting") {
+if (command === "-waiting") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -763,7 +1138,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-if (command === "clocks") {
+if (command === "-clocks") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -779,7 +1154,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-if (command === "paradise") {
+if (command === "-paradise") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -795,7 +1170,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-if (command === "strawberry") {
+if (command === "-strawberry") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -811,7 +1186,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-if (command === "cbrown") {
+if (command === "-cbrown") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -827,7 +1202,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-if (command === "violethill") {
+if (command === "-violethill") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -843,7 +1218,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-if (command === "scientist") {
+if (command === "-scientist") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -859,7 +1234,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-if (command === "yellow") {
+if (command === "-yellow") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -875,7 +1250,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-if (command === "haveyouever") {
+if (command === "-haveyouever") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -891,7 +1266,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-if (command === "kickdown") {
+if (command === "-kickdown") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -907,7 +1282,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-if (command === "amazed") {
+if (command === "-amazed") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -923,7 +1298,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
   
-  if (command === "noose") {
+  if (command === "-noose") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -939,7 +1314,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-if (command === "headaround") {
+if (command === "-headaround") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -955,7 +1330,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-if (command === "americana") {
+if (command === "-americana") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -971,7 +1346,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-if (command === "comeplay") {
+if (command === "-comeplay") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -987,7 +1362,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-if (command === "changeworld") {
+if (command === "-changeworld") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -1003,7 +1378,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-if (command === "goneaway") {
+if (command === "-goneaway") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -1019,7 +1394,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-if (command === "choose") {
+if (command === "-choose") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -1035,7 +1410,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-if (command === "mota") {
+if (command === "-mota") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -1051,7 +1426,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-if (command === "meaninglife") {
+if (command === "-meaninglife") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -1067,7 +1442,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-if (command === "selfesteem") {
+if (command === "-selfesteem") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -1083,7 +1458,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-if (command === "kidsalright") {
+if (command === "-kidsalright") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -1099,7 +1474,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-if (command === "mms") {
+if (command === "-mms") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -1115,7 +1490,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-if (command === "stockholm") {
+if (command === "-stockholm") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -1131,7 +1506,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-if (command === "rockshow") {
+if (command === "-rockshow") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -1147,7 +1522,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-if (command === "christmas") {
+if (command === "-christmas") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -1163,7 +1538,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-if (command === "age") {
+if (command === "-age") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -1179,7 +1554,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-if (command === "wastingtime") {
+if (command === "-wastingtime") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -1195,7 +1570,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-if (command === "aliens") {
+if (command === "-aliens") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -1211,7 +1586,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-if (command === "leaveme") {
+if (command === "-leaveme") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -1227,7 +1602,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-if (command === "smallthings") {
+if (command === "-smallthings") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -1243,7 +1618,7 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     }
 }
 
-  if (command === "mh418") {
+  if (command === "-mh418") {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => {
@@ -1252,6 +1627,19 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
         dispatcher.on('end', () => {
           message.member.voiceChannel.leave()
           });
+        })
+        .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
+    } else {
+      message.reply("Oi idiot, ya' needa join a voice channel first!");
+    }
+}
+  
+  if (command === "-heartbox") {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          message.reply("Connected! Now playing `Heart Shaped Box - Nirvana`");
+const dispatcher = connection.playArbitraryInput('hhttps://cdn.glitch.com/268eb76d-338e-4954-b69e-b9d295244729%2FHeartShapedBox.mp3');
         })
         .catch(stripIndents`No I don't wanna.\n\`${Error}\`\nYou should probably tell Doroken.`);
     } else {
@@ -1271,19 +1659,19 @@ const dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/268eb76
     const answers = [
   "you are 0% heck. However, you are 100% frick.",
   "you are 25% heck. The other 75% is internal suffering and 2 liters of raspberry ginger ale.",
-  "you are 10% luck, 20% skill, 15% concentrated power of will, 5% pleasure, 50% pain, and 100% reason you're an heck.",
+  "this is 10% luck, 20% skill, 15% concentrated power of will, 5% pleasure, 50% pain, and 100% reason you're an heck.",
   "you are 50% heck and 50% dead memes.",
-  "you are 75% heck. The other 25% is memes.",
+  "you are 75% heck. The other 25% is memes. Not dank memes, not dead memes, just memes.",
   "your dank memes shield you from the heck. 15% heck taken.",
   "ever since you called me a stupid bot I've been really sad so I'm taking it personally and telling you that you're 100% heck",
   "you're too edgy to be a heck. 0% heck but 100% edgelord for sure.",
   "Swagolor tries to shield you from the heck. 40% heck taken.",
   "you are 50% heck. The other 50% is internal screeching.",
-  "you are 25% heck. The other 75% is hotdogs.",
-  "you are 100% heck. The heckiest heck that has ever walked this planet.",
+  "you are 25% heck. The other 75% is hotdogs. If it were chili dogs, you'd probably be 0% heck. Or maybe 100%. I don't know. Come back when you get me a chili dog.",
+  "you are 100% heck. The heckiest heck that has ever walked this planet. Absolutely heckful.",
   "you are 60% heck for stealing Doroken's memes. The other 40% is homemade maymays.",
   "you are 50% heck. You're a bit of a hecky. Or, should I say, a bit of a *Becky*? The other 50% is cats, video games, and a little bit of pain.",
-  "you're 0% heck but 100% dead meme for sure.",
+  "you're 0% heck but 100% dead memes for sure.",
   "my senses say that you are 80% heck. Actually, I don't have any weird magical senses like that. But you still look like a heck.",
   "your mom's a heck, so by that logic, so are you. 100% heck.",
   "you're a bigger heck than kirbyfantic101. Now THAT'S sayin' alot. 101% heck."
@@ -1393,7 +1781,7 @@ message.reply(Random)
 	  "Faint - Linkin Park (Punk/Grunge rock?)",
 	  "` My<Dsmbr - Linkin Park (Soft electronic grunge?)",
 	  "Wth>You - Linkin Park (Nu metal/electronic grunge?)",
-    "` By_Myslf - Linkin Park (Nu metal/electronic grunge?)",
+    "By_Myslf - Linkin Park (Nu metal/electronic grunge?)",
 	  "In The End - Linkin Park (Edgy rock)",
 	  "Crawling - Linkin Park (CRAAAAWWWWWLING INNNN MY SKIN)",
 	  "In Pieces - Linkin Park (not really sure what genre)",
@@ -1401,6 +1789,8 @@ message.reply(Random)
     "`Stick 'N Move - Xero/Early Linkin Park (Grunge rap-rock?)",
     "`Ground Xero - Xero/Early Linkin Park (Soft grunge/rock?)",
     "Reading My Eyes - Xero/Early Linkin Park (Grunge rap-rock?)*",
+    "`Forgotten - Linkin Park (Rap/Rock?)",
+    "Pushing Me Away - Linkin Park (Rock?)",
   
       
 	  //offspring
@@ -1532,7 +1922,14 @@ message.reply(Random)
     "When I'm Gone - 3 Doors Down (Classic/alt. rock?)",
     "Thnks Fr Th Mmrs - Fall Out Boy (That modern emo-rock tumblr people like idk)",
     "Megalovania - Sans Undertale (do do do do do do dodo)",
-    "Trippin' On A Hole in a Paper Heart - Stone Temple Pilots (Soft rock?)"
+    "Trippin' On A Hole in a Paper Heart - Stone Temple Pilots (Soft rock?)",
+    "Already Gone - The Eagles (Classic rock?)",
+    "The Last Stand - Sabaton (DEUS VULT!)",
+    "`Everlong - Foo Fighters (Rock)",
+    "You Really Got Me - Van Halen (Rock)",
+    "Top of the World - Van Halen (Rock)",
+    "Welcome - Fort Minor (Rap/Electronic?)*",
+    "Interstate Love Song - Stone Temple Pilots (Rock-ish)"
 ]
 
 const Random = answers[Math.floor(Math.random() * answers.length)];
@@ -1569,7 +1966,7 @@ message.reply(Random);
   "Bass Generation by Basshunter (2009)",
 	
 	"`Xero by Linkin Park (1997)",
-  "`Reanimation by Linkin Park (2002)",
+  "Reanimation by Linkin Park (2002)",
 	"Minutes to Midnight by Linkin Park (2007)",
 	"`The Hunting Party by Linkin Park (2014)",	
 
@@ -1604,13 +2001,14 @@ message.reply(Random);
 
   if (command === "chat") {
     
-    if (message.content.startsWith("Hello") || message.content.startsWith("hello") || message.content.startsWith("Hi") || message.content.startsWith("Hey") || message.content.startsWith("hi") || message.content.startsWith("hey") || message.content.startsWith("Ollo") || message.content.startsWith("ollo")) {
+    if (message.content.includes("Hello") || message.content.includes("hello") || message.content.includes("Hi") || message.content.includes("Hey") || message.content.includes("hi") || message.content.includes("hey") || message.content.includes("Ollo") || message.content.includes("ollo")) {
     const greeting = [
       "hey hey hey hello hello hello!",
       "yo, what's up?",
       "hey there.",
       "new phone who dis",
-      "whaddya want?! I'm trying to binge watch My Little Pony."
+      "whaddya want?! I'm tryna binge watch My Little Pony.",
+      "I don't like people go awaaaaaayyyyyy"
     ]
     const Reply = greeting[Math.floor(Math.random() * greeting.length)];
       message.reply(Reply)
@@ -1623,6 +2021,7 @@ message.reply(Random);
        "Shrek is love, Shrek is life.",
        "I've heard there's gonna be a Shrek 5. What a time to be alive!",
        "Shrek x Megamind is OTP, according to Doroken. I personally think Shrek and Fiona are fine together. But then there's also Cookie the Ogre...mmm...",
+       "Shrek is still blocking the Suez canal we have to stop him."
      ]
      const Reply = answers[Math.floor(Math.random() * answers.length)];
        message.reply(Reply)
@@ -1654,8 +2053,7 @@ message.reply(Random);
        "W-What?! Of course I'm not! My mom isn't either, fyi!!",
        "No you!",
        "N-no...your mom is!",
-       "I AM NOT THE HOMOSEX!!",
-       "No you!"
+       "I AM NOT THE HOMOSEX!!"
      ]
      const Reply = answers[Math.floor(Math.random() * answers.length)];
      message.reply(Reply)
@@ -1664,10 +2062,10 @@ message.reply(Random);
     
     if (message.content.includes("Furry") || message.content.includes("furry")) {
      const answers = [
-       "No, I'm not a furry. Go away Night.",
-       "No!! Furries are weird and do weird things...ehhh...",
-       "Can't I just be seen as a normal, four-legged cat?",
-       "Sure, they make some cute art, but they also make a lot of um...art that isn't good for the kittens."
+       "no, I'm not a furry. Go away Night.",
+       "can't I just be seen as a normal, four-legged cat?",
+       "sure, furries make some cute art, but they also make a lot of um...art that isn't good for the kittens.",
+       "as in...my fur is furry and fluffy? Uh ok. My brother Acorn is fluffier than me though - looks like a dust mop! Ha. He's an idiot. Well...I guess he is the \"smart\" one, so...well whatever! He still sucks anyway!"
      ]
      const Reply = answers[Math.floor(Math.random() * answers.length)];
      message.reply(Reply)
@@ -1688,7 +2086,19 @@ message.reply(Random);
      const answers = [
        "no.",
        "only if you get me stuffed crust.",
-       "what? Sorry, I can't hear you over the sound of my S U P E R  C O M P U T E R"
+       "what? Sorry, I can't hear you over the sound of my S U P E R  C O M P U T E R",
+       "NO WAY, LADDIE!"
+     ]
+     const Reply = answers[Math.floor(Math.random() * answers.length)];
+     message.reply(Reply)
+         return;
+}
+    
+        if (message.content.includes("limp bizkit") || message.content.includes("Limp Bizkit")) {
+     const answers = [
+       "YOU WANT TO MESS WITH LIMP BIZKIT? YOU CAN'T MESS WITH LIMP BIZKIT!",
+       "their name is similar to Linkin Park so you can find them in the bargain bin next to each other.",
+       "keep on rollin', baby."
      ]
      const Reply = answers[Math.floor(Math.random() * answers.length)];
      message.reply(Reply)
@@ -1710,7 +2120,7 @@ message.reply(Random);
     if (message.content.includes("Waluigi") || message.content.includes("waluigi")) {
      const answers = [
        "Waluigi for Smash or riot!",
-       "Waluigi > all other Nintendo characters. Except King Dedede. Nobody can top him.",
+       "Waluigi > all other Nintendo characters. Except King Dedede. Nobody can top him. I mean that both figuratively and literally.",
        "Waluigi is the ultimate example of the individual shaped by the signifier. Waluigi is a man seen only in mirror images; lost in a hall of mirrors he is a reflection of a reflection of a reflection. You start with Mario – the wholesome all Italian plumbing superman, you reflect him to create Luigi – the same thing but slightly less. You invert Mario to create Wario – Mario turned septic and libertarian – then you reflect the inversion in the reflection: you create a being who can only exist in reference to others. Waluigi is the true nowhere man, without the other characters he reflects, inverts and parodies he has no reason to exist. Waluigi’s identity only comes from what and who he isn’t – without a wider frame of reference he is nothing. He is not his own man. In a world where our identities are shaped by our warped relationships to brands and commerce we are all Waluigi."
      ]
      const Reply = answers[Math.floor(Math.random() * answers.length)];
@@ -1721,14 +2131,15 @@ message.reply(Random);
     if (message.content.includes("Paul") || message.content.includes("Sprintern")) {
      const answers = [
        "Caaaarl!",
-       "Hi, Sprintern!",
+       "hi, Sprintern!",
        "I used to work for Verizon, but now I'm a spokesperson for Sprint.",
-       "Shhh, do you hear that? That's the sound of forgiveness. That is what forgiveness sounds like - screaming, and then silence."
+       "shhh, do you hear that? That's the sound of forgiveness. That is what forgiveness sounds like - screaming, and then silence."
      ]
      const Reply = answers[Math.floor(Math.random() * answers.length)];
      message.reply(Reply)
          return;
 }
+    
 
     //? implies a question was asked
     if (message.content.includes("?")) {
@@ -1751,8 +2162,11 @@ message.reply(Random);
       "or I could just...y'know, not.",
       "ha ha ha. While you've spent your time playing video games, I've been studying the katana.",
       "I mean sure I guess.",
-      "Nah sorry I can't today - I'm gonna go watch Spiderman and Elsa's wedding.",
-      "I dunno what do you wanna do today?"
+      "nah sorry I can't today - I'm gonna go watch Spiderman and Elsa's wedding.",
+      "I dunno what do you wanna do today?",
+      "what about you?",
+      "you first.",
+      "what's yours?"
     ]
     const Answer = answers[Math.floor(Math.random() * answers.length)];
     message.reply(Answer)
@@ -1800,7 +2214,14 @@ message.reply(Random);
       "wow buddy, are you like...okay? You need a steamed ham or something?",
       "Can you BELIEVE that crap about Waluigi not getting in the new Smash?!",
       "I sense a very hecky heck nearby...is it you?",
-      "your scream's a whisper"
+      "your scream's a whisper",
+      "pizza time. Pizza pizza pizza.",
+      "I've got 96 problems. Please help.",
+      "chili dogs?",
+      "Understandable. I'm not gonna tell you to have a great day though cause that just ain't the type of cat I am.",
+      "I walk alone.",
+      "cut my life into pizza. Mmmm pizza. I hope Obama gets it for me.",
+      "don't forget, you're here forever."
       ]
 
     const Random = random[Math.floor(Math.random() * random.length)];
@@ -1871,7 +2292,159 @@ message.reply(Random);
     }
   
   
+  //Dice
+  
+  if (command === "d20") {
+    const answers = [
+"1 (you're fucked)",
+"2",
+"3",
+"4",
+"5",
+"6",
+"7",
+"8",
+"9",
+"10",
+"11",
+"12",
+"13",
+"14",
+"15",
+"16",
+"17",
+"18",
+"19",
+"20 (OH SHIT IT'S A CRIT!)",
+  
+]
 
+const Random = answers[Math.floor(Math.random() * answers.length)];
+
+message.reply(Random)
+        .catch(stripIndents`Uh oh, must've been a heck overload! \`${Error}\` happened. You should tell Doroken now.`);
+
+  }
+  
+  
+  if (command === "d12") {
+    const answers = [
+"1",
+"2",
+"3",
+"4",
+"5",
+"6",
+"7",
+"8",
+"9",
+"10",
+"11",
+"12"
+  
+]
+
+const Random = answers[Math.floor(Math.random() * answers.length)];
+
+message.reply(Random)
+        .catch(stripIndents`Uh oh, must've been a heck overload! \`${Error}\` happened. You should tell Doroken now.`);
+
+  }
+  
+  
+  if (command === "d10") {
+    const answers = [
+"1",
+"2",
+"3",
+"4",
+"5",
+"6",
+"7",
+"8",
+"9",
+"10"
+  
+]
+
+const Random = answers[Math.floor(Math.random() * answers.length)];
+
+message.reply(Random)
+        .catch(stripIndents`Uh oh, must've been a heck overload! \`${Error}\` happened. You should tell Doroken now.`);
+
+  }
+  
+  
+  if (command === "d8") {
+    const answers = [
+"1",
+"2",
+"3",
+"4",
+"5",
+"6",
+"7",
+"8"
+  
+]
+
+const Random = answers[Math.floor(Math.random() * answers.length)];
+
+message.reply(Random)
+        .catch(stripIndents`Uh oh, must've been a heck overload! \`${Error}\` happened. You should tell Doroken now.`);
+
+  }
+  
+  
+  if (command === "d6") {
+    const answers = [
+"1",
+"2",
+"3",
+"4",
+"5",
+"6"
+  
+]
+
+const Random = answers[Math.floor(Math.random() * answers.length)];
+
+message.reply(Random)
+        .catch(stripIndents`Uh oh, must've been a heck overload! \`${Error}\` happened. You should tell Doroken now.`);
+
+  }
+  
+
+  if (command === "d4") {
+    const answers = [
+"1",
+"2",
+"3",
+"4"
+  
+]
+
+const Random = answers[Math.floor(Math.random() * answers.length)];
+
+message.reply(Random)
+        .catch(stripIndents`Uh oh, must've been a heck overload! \`${Error}\` happened. You should tell Doroken now.`);
+
+  }
+  
+  
+  if (command === "d2") {
+    const answers = [
+"1",
+"2"
+  
+]
+
+const Random = answers[Math.floor(Math.random() * answers.length)];
+
+message.reply(Random)
+        .catch(stripIndents`Uh oh, must've been a heck overload! \`${Error}\` happened. You should tell Doroken now.`);
+
+  }
   //Alias returns
     if (command === "alt") {
     message.reply("Usage: `alt-[command name]`\n\Example: `alt-ping`")
@@ -2185,6 +2758,22 @@ message.reply(Random);
   
   if (command === "alt-" + "music") {
 	    message.reply("`music` has no aliases.");
+  }
+  
+  if (command === "alt-" + "music-yt") {
+	    message.reply("`music-yt` has no aliases.");
+  }
+  
+  if (command === "alt-" + "music-spot") {
+	    message.reply("`music-spot` has no aliases.");
+  }
+  
+  if (command === "alt-" + "playlist") {
+	    message.reply("`playlist` has no aliases.");
+  }
+  
+  if (command === "alt-" + "allstar" || command === "alt-" + "rickroll" || command === "alt-" + "bobd" || command === "alt-" + "basket" || command === "alt-" + "21guns" || command === "alt-" + "suburbia" || command === "alt-" + "niceguys" || command === "alt-" + "waiting" || command === "alt-" + "vivavida" || command === "alt-" + "clocks" || command === "alt-" + "paradise" || command === "alt-" + "strawberry" || command === "alt-" + "cbrown" || command === "alt-" + "violethill" || command === "alt-" + "scientist" || command === "alt-" + "yellow" || command === "alt-" + "haveyouever" || command === "alt-" + "kickdown" || command === "alt-" + "amazed" || command === "alt-" + "noose" || command === "alt-" + "headaround" || command === "alt-" + "americana" || command === "alt-" + "comeplay" || command === "alt-" + "changeworld" || command === "alt-" + "goneaway" || command === "alt-" + "choose" || command === "alt-" + "mota" || command === "alt-" + "meaninglife" || command === "alt-" + "selfesteem" || command === "alt-" + "kidsalright" || command === "alt-" + "mms" || command === "alt-" + "stockholm" || command === "alt-" + "rockshow" || command === "alt-" + "christmas" || command === "alt-" + "age" || command === "alt-" + "wastingtime" || command === "alt-" + "aliens" || command === "alt-" + "leaveme" || command === "alt-" + "smallthings" || command === "alt-" + "mh418") {
+	    message.reply("None of the songs have an alias.");
   }
       });
    client.login(process.env.SECRET);
