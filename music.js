@@ -33,7 +33,7 @@ client.on("message", (message) => {
     }
   
   if (command === "ping4") {
-    message.reply("Pong! Script 4 (music) is up and running.");
+    message.reply("Pong! Script 3 (music) is up and running.");
     message.react("✔");
   }
     if (message.content.startsWith(">ping")) {
