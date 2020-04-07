@@ -1,4 +1,6 @@
-  if (command === "loop") {
+  //just a bunch of test commands related to music playing
+
+if (command === "loop") {
     const looping = false;
     const currentVoiceChannel = null;
   		if(currentVoiceChannel !== message.member.voiceChannel){
