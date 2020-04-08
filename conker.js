@@ -185,11 +185,11 @@ if (message.author.id === "332354236253995013") {
 	   "fields": [
        {
            "name": "Doroken",
-           "value":"[Contact me](https://pastebin.com/mDTgqZfA)"
+           "value":"[Contact me](https://pastebin.com/mDTgqZfA)\n[Report an issue or request features](https://github.com/Doroken/Conker/issues)"
        },
        {
          "name": "Prefix",
-         "value": "The prefix is `>`. No, you can not change it. You will use the meme arrow. Well, I guess you *can* mention me with @Conker as a prefix if you want, although it runs on a seperate script that isn't as updated as the main one. So `>newcommand` will work, but `@Conker newcommand` might not."
+         "value": "The prefix is `>`. No, you can not change it. You will use the meme arrow."
        },
        {
          "name": "Commands",
