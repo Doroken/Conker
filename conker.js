@@ -185,7 +185,7 @@ if (message.author.id === "332354236253995013") {
 	   "fields": [
        {
            "name": "Doroken",
-           "value":"[Contact me](https://pastebin.com/mDTgqZfA)\n[Report an issue or request features](https://github.com/Doroken/Conker/issues)"
+           "value":"[Contact me](https://contactpage.glitch.me/)\n[Report an issue or request features](https://github.com/Doroken/Conker/issues)"
        },
        {
          "name": "Prefix",
