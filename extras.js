@@ -390,10 +390,6 @@ if (message.content.includes("You tried")) {
 	message.channel.send("no u"); }
 	if (message.content.includes("Conker shut")) {
 	message.channel.send("no u"); }
-	if (message.content.includes("Shut Conker")) {
-	message.channel.send("no u"); }
-	if (message.content.includes("shut Conker")) {
-	message.channel.send("no u"); }
 	if (message.content.includes("Heck u Conk")) {
 	message.channel.send("no u"); }
 	if (message.content.includes("heck u Conk")) {
