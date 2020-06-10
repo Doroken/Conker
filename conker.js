@@ -26,8 +26,8 @@ const clean = text => {
 }
 
 //update info
-const Version = "1.40";
-const Latest = "April 3rd, 2020";
+const Version = "1.41";
+const Latest = "April 24th, 2020";
 const Month = "April";
 
 //cmds
@@ -47,15 +47,15 @@ const MusMonth = "April 2020";
 
 const statuses = [
 	{
-		"text": ">help | v1.4",
+		"text": ">help | v1.41",
 		"type": "PLAYING"
 	},
   {
-		"text": ">help | v1.4",
+		"text": ">help | v1.41",
 		"type": "PLAYING"
 	},
   	{
-		"text": "LAST UPDATE: 4.3.2020",
+		"text": "LAST UPDATE: 4.24.2020",
 		"type": "PLAYING"
 	},
 	{
@@ -119,6 +119,12 @@ if (message.content.startsWith("Finally,")) {
   message.channel.send(Reply);
   }
 }
+  
+   if (message.author.id === "332663639158816768") {
+     if (message.content.includes("Princely Paws")) {
+     message.channel.send("MOOOM!");
+   }
+  }
   
    if (message.author.id === "468480694059008000") {
 if (message.content.startsWith("Conker! Go to your room!")) {
@@ -185,7 +191,7 @@ if (message.author.id === "332354236253995013") {
 	   "fields": [
        {
            "name": "Doroken",
-           "value":"[Contact me](https://contactpage.glitch.me/)\n[Report an issue or request features](https://github.com/Doroken/Conker/issues)"
+           "value":"[Contact me](https://contactpage.glitch.me/)\n[Report an issue or request features](https://github.com/Doroken/Conker/issues)\n[Donate](https://www.patreon.com/Doroken)"
        },
        {
          "name": "Prefix",
@@ -211,7 +217,7 @@ if (message.author.id === "332354236253995013") {
       if (command === "serverlist") {
     message.channel.send({
 "embed": {
-    "title": "Server List",
+    "title": "Public Server List",
     "description": "`Total Server Count - 8`",
 	"color": 2254003,
 	   "fields": [
@@ -280,7 +286,7 @@ if (message.author.id === "332354236253995013") {
      },
     {
         "name": "Upcoming/Developing Features",
-        "value": "I was thinking of throwing in common english words and making a command that has Conker randomly pick a bunch of words. It'll probably be nonsense most of the time but maybe there will be a funny some time."
+        "value": "I was thinking of throwing in common english words and making a command that has Conker randomly pick a bunch of words to try and string together sentences. It'll probably be nonsense most of the time but maybe there will be a funny some time."
      }
     ]
   }
@@ -346,7 +352,7 @@ if (message.author.id === "332354236253995013") {
       },
 	  {
         "name": stripIndents`Videos/Music (${multimedCmd})`,
-        "value": "`music` Gives you a list of songs that the bot can play.\n`kirbynightcore` Created by Doroken himself - a great lullaby.\n`oceanman` Take me by the hand, lead me to the land~\n`cottoneyejoe` Night loves this song.\n`edge` Posts Doroken's \"edgy\" playlist from Spotify. Lots of Limp Bizkit and Linkin Park.\n\`song` Gives you a song recommendation from a list over 180! Songs with an asterisk at the end indicate that it may be inappropriate, whether by a couple swear words or questionable content. Songs with a grave at the beginning indicate one I strongly recommend.\n\`album` Gives you an album recommendation. Albums with a grave are ones I strongly recommend.\n`music-yt` Gives you a song from YouTube.\n`music-spot` Gives you a song from Spotify. This has a lot more songs included than YouTube.\n`playlist` Gives you one of my Spotify Playlists."
+        "value": "`music` Gives you a list of songs that the bot can play.\n`kirbynightcore` Created by Doroken - a great lullaby.\n`oceanman` Take me by the hand, lead me to the land~\n`cottoneyejoe` Night loves this song.\n`edge` Posts Doroken's \"edgy\" playlist from Spotify. Lots of Limp Bizkit and Linkin Park.\n\`song` Gives you a song recommendation from a list over 180! Songs with an asterisk at the end indicate that it may be inappropriate, whether by a couple swear words or questionable content. Songs with a grave at the beginning indicate one I strongly recommend.\n\`album` Gives you an album recommendation. Albums with a grave are ones I strongly recommend.\n`music-yt` Gives you a song from YouTube.\n`music-spot` Gives you a song from Spotify. This has a lot more songs included than YouTube.\n`playlist` Gives you one of my Spotify Playlists."
       },
       {
         "name": stripIndents`Emoji Response (${emojiCmd})`,
@@ -404,7 +410,7 @@ if (message.author.id === "332354236253995013") {
       },
 	  {
         "name": stripIndents`Videos/Music (${multimedCmd})`,
-        "value": "`music` Gives you a list of songs that the bot can play.\n`kirbynightcore` Created by Doroken himself - a great lullaby.\n`oceanman` Take me by the hand, lead me to the land~\n`cottoneyejoe` Night loves this song.\n`edge` Posts Doroken's \"edgy\" playlist from Spotify. Lots of Limp Bizkit and Linkin Park.\n\`song` Gives you a song recommendation from a list over 180! Songs with an asterisk at the end indicate that it may be inappropriate, whether by a couple swear words or questionable content. Songs with a grave at the beginning indicate one I strongly recommend.\n\`album` Gives you an album recommendation. Albums with a grave are ones I strongly recommend.\n`music-yt` Gives you a song from YouTube.\n`music-spot` Gives you a song from Spotify. This has a lot more songs included than YouTube.\n`playlist` Gives you one of my Spotify Playlists."
+        "value": "`music` Gives you a list of songs that the bot can play.\n`kirbynightcore` Created by Doroken - a great lullaby.\n`oceanman` Take me by the hand, lead me to the land~\n`cottoneyejoe` Night loves this song.\n`edge` Posts Doroken's \"edgy\" playlist from Spotify. Lots of Limp Bizkit and Linkin Park.\n\`song` Gives you a song recommendation from a list over 180! Songs with an asterisk at the end indicate that it may be inappropriate, whether by a couple swear words or questionable content. Songs with a grave at the beginning indicate one I strongly recommend.\n\`album` Gives you an album recommendation. Albums with a grave are ones I strongly recommend.\n`music-yt` Gives you a song from YouTube.\n`music-spot` Gives you a song from Spotify. This has a lot more songs included than YouTube.\n`playlist` Gives you one of my Spotify Playlists."
       },
       {
         "name": stripIndents`Emoji Response (${emojiCmd})`,
@@ -428,7 +434,7 @@ if (message.author.id === "332354236253995013") {
   }
 
   if (command === "invite") {
-    message.channel.send("**Note that only Doroken can add me, as I am a private bot!**\n\If you'd like Conker on your server, simply ask! As long as I'm on your server, I'll gladly add it.\n\https://discordapp.com/api/oauth2/authorize?client_id=313365972943896576&permissions=3537987&scope=bot");
+    message.channel.send("**Note that only Doroken can add me, as I am a private bot!**\n\If you'd like Conker on your server, simply ask. As long as I'm on your server, I'll gladly add it.\n\https://discordapp.com/api/oauth2/authorize?client_id=313365972943896576&permissions=3537987&scope=bot");
   }
 
   if (command === "whoareyou") {
