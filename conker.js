@@ -26,9 +26,9 @@ const clean = text => {
 }
 
 //update info
-const Version = "1.41";
-const Latest = "April 24th, 2020";
-const Month = "April";
+const Version = "1.42";
+const Latest = "June 10th, 2020";
+const Month = "June";
 
 //cmds
 const cmdCount = "63";
@@ -47,15 +47,15 @@ const MusMonth = "April 2020";
 
 const statuses = [
 	{
-		"text": ">help | v1.41",
+		"text": ">help | v1.42",
 		"type": "PLAYING"
 	},
   {
-		"text": ">help | v1.41",
+		"text": ">help | v1.42",
 		"type": "PLAYING"
 	},
   	{
-		"text": "LAST UPDATE: 4.24.2020",
+		"text": "LAST UPDATE: 6.10.2020",
 		"type": "PLAYING"
 	},
 	{
@@ -67,7 +67,7 @@ const statuses = [
 		"type": "WATCHING"
 	},
   {
-    "text": "with recent updates: more annoying responses to interrupt your conversations",
+    "text": "with recent updates: bug fixes",
     "type": "PLAYING"
   },
   {
@@ -278,15 +278,15 @@ if (message.author.id === "332354236253995013") {
       },
 	  {
         "name": "Bug Fixes",
-        "value": "I saw a tiny one on my windowsill the other day. I picked it up with a piece of paper and put it outside. May not have survived."
+        "value": "Don't worry about saying speed or anything like that cause the peepeepoopoo thing has been removed entirely now.\n\"Button\" is now safe to say, but only as button, Button, and BUTTON.\nConker will no longer say \"no u\" twice when you tell him to shut."
       },
 	  {
         "name": "Other Notes",
-        "value": "Music list is organized by artists now. Also added a single song. Yes. New profile picture as well."
+        "value": "Bot may go semi-public soon. Meaning you'll be able to go off and add it to servers without me."
      },
     {
         "name": "Upcoming/Developing Features",
-        "value": "I was thinking of throwing in common english words and making a command that has Conker randomly pick a bunch of words to try and string together sentences. It'll probably be nonsense most of the time but maybe there will be a funny some time."
+        "value": "Considering a music overhaul."
      }
     ]
   }
