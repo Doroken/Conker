@@ -40,6 +40,11 @@ message.channel.send(`HACKER NO HACKING! ${message.author.username} posted a bla
      message.channel.send("<:CreepySmiley:252915802162855936>");
  }
   
+    
+  if (message.content.includes("┬─┬ ノ( ゜-゜ノ)")) {
+    message.channel.send("(╯°□°）╯︵ ┻━┻");
+  }
+  
 if (message.author.bot) return;
   //well this obviously didn't work-
 const args = message.content.slice(message.length).trim().split(/ +/g);
@@ -67,18 +72,12 @@ const args = message.content.slice(message.length).trim().split(/ +/g);
   if (message.content.includes("dangerous")) return;
   if (message.content.includes("scrap")) return;
   if (message.content.includes("Scrap")) return;
-  if (message.content.includes("yipee")) return;
-  if (message.content.includes("Yipee")) return;
-  if (message.content.includes("YIPEE")) return;
-  if (message.content.includes("yippee")) return;
-  if (message.content.includes("Yippee")) return;
-  if (message.content.includes("YIPPEE")) return;
-  if (message.content.includes("shampoo")) return;
-  if (message.content.includes("Shampoo")) return;
-  if (message.content.includes("SHAMPOO")) return;
   if (message.content.includes("butter")) return;
   if (message.content.includes("Butter")) return;
   if (message.content.includes("BUTTER")) return;
+  if (message.content.includes("button")) return;
+  if (message.content.includes("Button")) return;
+  if (message.content.includes("BUTTON")) return;
 
   
      if (message.content.startsWith("conk")) {
@@ -117,9 +116,9 @@ const args = message.content.slice(message.length).trim().split(/ +/g);
    message.channel.send("haha butts");
  }
   
-     if (message.content.includes("pee") || message.content.includes("poo") || message.content.includes("Pee") || message.content.includes("Poo")) {
+     /*if (message.content.includes("pee") || message.content.includes("poo") || message.content.includes("Pee") || message.content.includes("Poo")) {
    message.channel.send("peepeepoopoo");
- }
+ }*/
   
   if (message.content.includes("<@313365972943896576>") || message.content.includes("<@!313365972943896576>")) {
     message.reply("don't ping me nerd");
@@ -141,7 +140,7 @@ const args = message.content.slice(message.length).trim().split(/ +/g);
    message.channel.send("I like fire trucks and moster trucks");
  }
   
-     if (message.content.includes("fire trucks and moster trucks") || message.content.includes("fire trucks and monster trucks") || message.content.includes("firetrucks and mostertrucks") || message.content.includes("firetrucks and monstertrucks")) {
+     if (message.content.includes("fire trucks and moster trucks") || message.content.includes("fire trucks and monster trucks") || message.content.includes("firetrucks and moster trucks") || message.content.includes("firetrucks and monster trucks") || message.content.includes("firetrucks and mostertrucks") || message.content.includes("firetrucks and monstertrucks") || message.content.includes("fire trucks and moster trucks") || message.content.includes("fire trucks and monster trucks")) {
    message.channel.send("Walter");
  }
   
