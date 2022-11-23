@@ -13,17 +13,13 @@ To see the bot in action or suggest new features, join the Discord: https://disc
 
 > **Scripts**
 
-2 scripts (main, extras)
+3 scripts (main, extras, yt-mus)
 
-Main script handles all the commands and music.
+`main` handles all the commands and built-in music. 3008 lines, d.js v11.5.1
 
-Extras script handles chat replies.
+`extras` handles chat replies. 552 lines, d.js v11.5.1
 
-Main script: 2890 lines
-
-Extras script: 547 lines
-
-Both scripts are running on discord.js v11.5.1.
+`yt-mus` handles YouTube audio playing in voice channels. 162 lines, d.js v12.5.3
 
 
 _________________
@@ -35,9 +31,13 @@ common-tags (used for stripIndents)
 
 express (used for periodic pinging to make sure the bot doesn't go down)
 
-ffmpeg-static (ffmpeg library for music playing; compatible with repl.it)
+ffmpeg, ffmpeg-static, fluent-ffmpeg (ffmpeg library for music playing; compatible with repl.it)
 
 opusscript (opus engine for ffmpeg)
 
+ytdl-core (YouTube)
+
+
+
 _________________
-*Info last updated 08/17/2021, 9:45pm EST*
+*Info last updated 11/22/2022, 7:04PM EST*
